@@ -94,6 +94,12 @@ class QuestionnaireListFragment : Fragment() {
             "HL7 example \"bb\" with questionnaire response to pre-fill answers",
             "hl7-questionnaire-example-bluebook.json",
             "hl7-questionnaireresponse-example-bluebook.json"
+          ),
+          // Sample registration questionnaire authored by fredhersch@google.com
+          QuestionnaireListItem(
+            "New Patient Registration",
+            "New patient registration form",
+            "new-patient-registration-paginated.json"
           )
         )
       )

@@ -31,7 +31,7 @@ internal class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSet
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     // Use the current date as the default date in the picker
     var today = LocalDate.now()
-    if(this.arguments?.get("date") != null){
+    if (this.arguments?.get("date") != null) {
       today = (this.arguments?.get("date") as LocalDate)
     }
     // Create a new instance of DatePickerDialog and return it

@@ -80,7 +80,9 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
   private val questionnaireResponseItemChangedCallback: (String) -> Unit = { linkId ->
     linkIdToQuestionnaireItemMap[linkId]?.let { questionnaireItemComponent ->
       if (questionnaireItemComponent.hasNestedItemsWithinAnswers) {
-        linkIdToQuestionnaireResponseItemMap[linkId]?.addNestedItemsToAnswer(questionnaireItemComponent)
+        linkIdToQuestionnaireResponseItemMap[linkId]?.addNestedItemsToAnswer(
+          questionnaireItemComponent
+        )
         linkIdToQuestionnaireResponseItemMap[linkId]?.answer?.singleOrNull()?.item?.forEach {
           linkIdToQuestionnaireResponseItemMap[it.linkId] = it
         }
@@ -133,9 +135,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
       linkIdToQuestionnaireResponseItemMap.putAll(
         createLinkIdToQuestionnaireResponseItemMap(item.item)
       )
-      item.answer.forEach {
-        createLinkIdToQuestionnaireResponseItemMap(it.item)
-      }
+      item.answer.forEach { createLinkIdToQuestionnaireResponseItemMap(it.item) }
     }
     return linkIdToQuestionnaireResponseItemMap
   }
@@ -186,7 +186,10 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
                 questionnaireItem = (linkIdToQuestionnaireItemMap[linkId]
                     ?: return@evaluate QuestionnaireItemWithResponse(null, null)),
                 questionnaireResponseItem = (linkIdToQuestionnaireResponseItemMap[linkId]
-                    ?: return@evaluate QuestionnaireItemWithResponse(linkIdToQuestionnaireItemMap[linkId], null))
+                    ?: return@evaluate QuestionnaireItemWithResponse(
+                      linkIdToQuestionnaireItemMap[linkId],
+                      null
+                    ))
               )
             }
           if (enabled) {
@@ -208,8 +211,8 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
                 )
                 .items
           } else {
-            //Clear answers when enabled items get disabled due to change in answer of the item
-              // which has the condition attached to it
+            // Clear answers when enabled items get disabled due to change in answer of the item
+            // which has the condition attached to it
             questionnaireResponseItem.answer.clear()
             emptyList()
           }
@@ -245,7 +248,7 @@ private fun validateQuestionnaireResponseItems(
     if (questionnaireItem.type.equals(Questionnaire.QuestionnaireItemType.GROUP)) {
       validateQuestionnaireResponseItems(questionnaireItem.item, questionnaireResponseItem.item)
     } else {
-      if(questionnaireResponseItem.hasAnswer()){
+      if (questionnaireResponseItem.hasAnswer()) {
         validateQuestionnaireResponseItems(
           questionnaireItem.item,
           questionnaireResponseItem.answer.first().item

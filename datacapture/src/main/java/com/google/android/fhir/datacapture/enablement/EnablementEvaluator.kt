@@ -114,18 +114,16 @@ private fun evaluateEnableWhen(
 ): Boolean {
   val (questionnaireItem, questionnaireResponseItem) =
     questionnaireResponseItemRetriever(enableWhen.question)
-  if(questionnaireItem !=null && questionnaireResponseItem == null){
-    if(questionnaireItem.initial[0].hasValueCoding() ) {
+  if (questionnaireItem != null && questionnaireResponseItem == null) {
+    if (questionnaireItem.initial[0].hasValueCoding()) {
       return (questionnaireItem.initial[0].valueCoding.code == enableWhen.answerCoding.code)
-    }
-    else {
+    } else {
       return false
     }
-  }
-  else if (questionnaireItem == null || questionnaireResponseItem == null) return true
+  } else if (questionnaireItem == null || questionnaireResponseItem == null) return true
   return if (Questionnaire.QuestionnaireItemOperator.EXISTS == enableWhen.operator) {
     (questionnaireResponseItem.answer.size > 0) == enableWhen.answerBooleanType.booleanValue()
-  }   else {
+  } else {
     questionnaireResponseItem.answer.any {
       enableWhenTypeToPredicate(enableWhen, questionnaireItem.type)(it)
     }

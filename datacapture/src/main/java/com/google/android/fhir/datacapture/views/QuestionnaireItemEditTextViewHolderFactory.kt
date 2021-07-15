@@ -16,13 +16,10 @@
 
 package com.google.android.fhir.datacapture.views
 
-import android.text.Editable
 import android.text.InputType
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import com.google.android.fhir.datacapture.R
 import com.google.android.fhir.datacapture.localizedPrefix
 import com.google.android.fhir.datacapture.localizedText
@@ -54,8 +51,8 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
     textInputEditText.setRawInputType(rawInputType)
     textInputEditText.isSingleLine = isSingleLine
     textInputEditText.doAfterTextChanged { editable ->
-    questionnaireItemViewItem.singleAnswerOrNull = getValue(editable.toString())
-    questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
+      questionnaireItemViewItem.singleAnswerOrNull = getValue(editable.toString())
+      questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
     }
     textInputEditText.setOnFocusChangeListener { view, hasFocus ->
       if (!hasFocus) {
@@ -80,10 +77,14 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
 
   override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
     this.questionnaireItemViewItem = questionnaireItemViewItem
-    if(questionnaireItemViewItem.questionnaireItem.extension?.filter {
-      it.url == REGEX_EXTENSION_URL
-      }?.firstOrNull()?.value?.toString() == "[0-9]+")
-    {
+    if (questionnaireItemViewItem
+        .questionnaireItem
+        .extension
+        ?.filter { it.url == REGEX_EXTENSION_URL }
+        ?.firstOrNull()
+        ?.value
+        ?.toString() == "[0-9]+"
+    ) {
       textInputEditText.inputType = InputType.TYPE_CLASS_PHONE
     }
     if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {

@@ -67,7 +67,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
   }
 
   /** Map from link IDs to questionnaire response items. */
-  private val linkIdToQuestionnaireResponseItemMap =
+  private var linkIdToQuestionnaireResponseItemMap =
     createLinkIdToQuestionnaireResponseItemMap(questionnaireResponse.item)
 
   /** Map from link IDs to questionnaire items. */
@@ -78,9 +78,9 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
 
   /** Callback function to update the UI. */
   private val questionnaireResponseItemChangedCallback: (String) -> Unit = { linkId ->
-    linkIdToQuestionnaireItemMap[linkId]?.let {
-      if (it.hasNestedItemsWithinAnswers) {
-        linkIdToQuestionnaireResponseItemMap[linkId]?.addNestedItemsToAnswer(it)
+    linkIdToQuestionnaireItemMap[linkId]?.let { questionnaireItemComponent ->
+      if (questionnaireItemComponent.hasNestedItemsWithinAnswers) {
+        linkIdToQuestionnaireResponseItemMap[linkId]?.addNestedItemsToAnswer(questionnaireItemComponent)
         linkIdToQuestionnaireResponseItemMap[linkId]?.answer?.singleOrNull()?.item?.forEach {
           linkIdToQuestionnaireResponseItemMap[it.linkId] = it
         }
@@ -90,7 +90,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
   }
 
   private val pageFlow =
-    MutableStateFlow<QuestionnairePagination?>(questionnaire.getInitialPagination())
+    MutableStateFlow(questionnaire.getInitialPagination())
 
   internal fun goToPreviousPage() {
     pageFlow.value = pageFlow.value!!.previousPage()
@@ -186,7 +186,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
                 questionnaireItem = (linkIdToQuestionnaireItemMap[linkId]
                     ?: return@evaluate QuestionnaireItemWithResponse(null, null)),
                 questionnaireResponseItem = (linkIdToQuestionnaireResponseItemMap[linkId]
-                    ?: return@evaluate QuestionnaireItemWithResponse(null, null))
+                    ?: return@evaluate QuestionnaireItemWithResponse(linkIdToQuestionnaireItemMap[linkId], null))
               )
             }
           if (enabled) {
@@ -208,6 +208,9 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
                 )
                 .items
           } else {
+            //Clear answers when enabled items get disabled due to change in answer of the item
+              // which has the condition attached to it
+            questionnaireResponseItem.answer.clear()
             emptyList()
           }
         }
@@ -242,10 +245,12 @@ private fun validateQuestionnaireResponseItems(
     if (questionnaireItem.type.equals(Questionnaire.QuestionnaireItemType.GROUP)) {
       validateQuestionnaireResponseItems(questionnaireItem.item, questionnaireResponseItem.item)
     } else {
-      validateQuestionnaireResponseItems(
-        questionnaireItem.item,
-        questionnaireResponseItem.answer.first().item
-      )
+      if(questionnaireResponseItem.hasAnswer()){
+        validateQuestionnaireResponseItems(
+          questionnaireItem.item,
+          questionnaireResponseItem.answer.first().item
+        )
+      }
     }
   }
   if (questionnaireItemListIterator.hasNext() xor questionnaireResponseItemListIterator.hasNext()) {

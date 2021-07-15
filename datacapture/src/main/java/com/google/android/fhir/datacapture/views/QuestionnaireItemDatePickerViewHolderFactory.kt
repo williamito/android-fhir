@@ -95,6 +95,7 @@ internal object QuestionnaireItemDatePickerViewHolderFactory :
                     value = date
                   }
                 questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
+                textInputEditText.clearFocus()
               }
             }
           )

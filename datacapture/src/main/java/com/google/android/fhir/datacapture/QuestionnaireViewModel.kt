@@ -90,7 +90,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
   }
 
   private val pageFlow =
-    MutableStateFlow(questionnaire.getInitialPagination())
+    MutableStateFlow<QuestionnairePagination?>(questionnaire.getInitialPagination())
 
   internal fun goToPreviousPage() {
     pageFlow.value = pageFlow.value!!.previousPage()

@@ -97,6 +97,7 @@ internal object QuestionnaireItemAutoCompleteViewHolderFactory :
               val chip = chipContainer.getChildAt(chipContainer.childCount - 2) as Chip
               chipContainer.removeView(chip)
               onChipRemoved(chip)
+
             }
           }
           false
@@ -186,6 +187,8 @@ internal object QuestionnaireItemAutoCompleteViewHolderFactory :
           replaceChip(answer)
           questionnaireItemViewItem.singleAnswerOrNull = answer
         }
+        questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
+
       }
 
       /**
@@ -248,6 +251,7 @@ internal object QuestionnaireItemAutoCompleteViewHolderFactory :
         } else {
           questionnaireItemViewItem.singleAnswerOrNull = null
         }
+        questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
       }
 
       private fun updateContainerBorder(hasFocus: Boolean) {

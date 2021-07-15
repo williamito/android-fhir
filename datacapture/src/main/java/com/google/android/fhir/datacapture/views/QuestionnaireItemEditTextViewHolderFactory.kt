@@ -17,13 +17,17 @@
 package com.google.android.fhir.datacapture.views
 
 import android.text.Editable
+import android.text.InputType
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import com.google.android.fhir.datacapture.R
 import com.google.android.fhir.datacapture.localizedPrefix
 import com.google.android.fhir.datacapture.localizedText
 import com.google.android.fhir.datacapture.validation.QuestionnaireResponseItemValidator
+import com.google.android.fhir.datacapture.validation.REGEX_EXTENSION_URL
 import com.google.android.fhir.datacapture.validation.ValidationResult
 import com.google.android.material.textfield.TextInputEditText
 import org.hl7.fhir.r4.model.QuestionnaireResponse
@@ -49,9 +53,9 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
     textInputEditText = itemView.findViewById(R.id.textInputEditText)
     textInputEditText.setRawInputType(rawInputType)
     textInputEditText.isSingleLine = isSingleLine
-    textInputEditText.doAfterTextChanged { editable: Editable? ->
-      questionnaireItemViewItem.singleAnswerOrNull = getValue(editable.toString())
-      questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
+    textInputEditText.doAfterTextChanged { editable ->
+    questionnaireItemViewItem.singleAnswerOrNull = getValue(editable.toString())
+    questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
     }
     textInputEditText.setOnFocusChangeListener { view, hasFocus ->
       if (!hasFocus) {
@@ -76,6 +80,12 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
 
   override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
     this.questionnaireItemViewItem = questionnaireItemViewItem
+    if(questionnaireItemViewItem.questionnaireItem.extension?.filter {
+      it.url == REGEX_EXTENSION_URL
+      }?.firstOrNull()?.value?.toString() == "[0-9]+")
+    {
+      textInputEditText.inputType = InputType.TYPE_CLASS_PHONE
+    }
     if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
       prefixTextView.visibility = View.VISIBLE
       prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix

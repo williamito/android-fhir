@@ -67,7 +67,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
   }
 
   /** Map from link IDs to questionnaire response items. */
-  private var linkIdToQuestionnaireResponseItemMap =
+  private val linkIdToQuestionnaireResponseItemMap =
     createLinkIdToQuestionnaireResponseItemMap(questionnaireResponse.item)
 
   /** Map from link IDs to questionnaire items. */
@@ -135,7 +135,11 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
       linkIdToQuestionnaireResponseItemMap.putAll(
         createLinkIdToQuestionnaireResponseItemMap(item.item)
       )
-      item.answer.forEach { createLinkIdToQuestionnaireResponseItemMap(it.item) }
+      item.answer.forEach {
+        linkIdToQuestionnaireResponseItemMap.putAll(
+          createLinkIdToQuestionnaireResponseItemMap(it.item)
+        )
+      }
     }
     return linkIdToQuestionnaireResponseItemMap
   }

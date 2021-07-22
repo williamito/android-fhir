@@ -28,6 +28,7 @@ internal object QuestionnaireItemDisplayViewHolderFactory :
     object : QuestionnaireItemViewHolderDelegate {
       private lateinit var prefixTextView: TextView
       private lateinit var textView: TextView
+      private lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
 
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix)

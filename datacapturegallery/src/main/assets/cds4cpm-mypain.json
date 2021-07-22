@@ -18,14 +18,9 @@
   "resourceType": "Questionnaire",
   "item": [
     {
-      "type": "choice",
-      "code": [
-        {
-          "code": "lga-codes",
-          "display": "LGA",
-          "system": "https://www.oyo.com/codes"
-        }
-      ],
+      "linkId": "static",
+      "text": "Static",
+      "type": "group",
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
@@ -33,37 +28,24 @@
             "coding": [
               {
                 "system": "http://hl7.org/fhir/questionnaire-item-control",
-                "code": "drop-down",
-                "display": "Drop down"
+                "code": "page",
+                "display": "Page"
               }
             ],
-            "text": "Drop down"
-          }
-        }
-      ],
-      "required": true,
-      "linkId": "1",
-      "text": "LGA",
-      "answerOption": [
-        {
-          "valueCoding": {
-            "code": "oluyole",
-            "display": "OLUYOLE",
-            "system": "https://www.oyo.com/codes/lga"
-          }
-        },
-        {
-          "valueCoding": {
-            "code": "akinyele",
-            "display": "AKINYELE",
-            "system": "https://www.oyo.com/codes/lga"
+            "text": "Page"
           }
         }
       ],
       "item": [
         {
           "type": "choice",
-          "code": [],
+          "code": [
+            {
+              "code": "lga-codes",
+              "display": "LGA",
+              "system": "https://www.oyo.com/codes"
+            }
+          ],
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
@@ -79,45 +61,29 @@
               }
             }
           ],
-          "required": false,
-          "linkId": "ward-akinyele",
-          "text": "Ward",
-          "enableWhen": [
-            {
-              "answerCoding": {
-                "code": "akinyele",
-                "system": "https://www.oyo.com/codes/lga"
-              },
-              "question": "1",
-              "operator": "="
-            }
-          ],
+          "required": true,
+          "linkId": "1",
+          "text": "LGA",
           "answerOption": [
             {
               "valueCoding": {
-                "code": "ikereku",
-                "display": "Ikereku",
-                "system": "https://www.oyo.com/codes/wards"
+                "code": "oluyole",
+                "display": "OLUYOLE",
+                "system": "https://www.oyo.com/codes/lga"
               }
             },
             {
               "valueCoding": {
-                "code": "iroko",
-                "display": "Iroko",
-                "system": "https://www.oyo.com/codes/wards"
+                "code": "akinyele",
+                "display": "AKINYELE",
+                "system": "https://www.oyo.com/codes/lga"
               }
             }
           ],
           "item": [
             {
               "type": "choice",
-              "code": [
-                {
-                  "code": "ward-Iroko",
-                  "display": "Net distribution",
-                  "system": "https://www.oyo.com/codes"
-                }
-              ],
+              "code": [],
               "extension": [
                 {
                   "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
@@ -134,17 +100,10 @@
                 }
               ],
               "required": false,
-              "linkId": "ward-Iroko",
-              "text": "Net distribution",
+              "linkId": "ward-akinyele",
+              "text": "Ward",
+              "enableBehavior": "all",
               "enableWhen": [
-                {
-                  "answerCoding": {
-                    "code": "iroko",
-                    "system": "https://www.oyo.com/codes/wards"
-                  },
-                  "question": "ward-akinyele",
-                  "operator": "="
-                },
                 {
                   "answerCoding": {
                     "code": "akinyele",
@@ -154,145 +113,154 @@
                   "operator": "="
                 }
               ],
-              "enableBehavior": "all",
               "answerOption": [
                 {
                   "valueCoding": {
-                    "code": "hla-primary-school",
-                    "display": "HLA Primary School",
-                    "system": "https://www.oyo.com/codes/distributionCenter"
-                  }
-                },
-                {
-                  "valueCoding": {
-                    "code": "christ-apostolic-church",
-                    "display": "Christ Apostolic Church",
-                    "system": "https://www.oyo.com/codes/distributionCenter"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "choice",
-              "code": [
-                {
-                  "code": "ward-ikereku",
-                  "display": "Net distribution",
-                  "system": "https://www.oyo.com/codes"
-                }
-              ],
-              "extension": [
-                {
-                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
-                  "valueCodeableConcept": {
-                    "coding": [
-                      {
-                        "system": "http://hl7.org/fhir/questionnaire-item-control",
-                        "code": "drop-down",
-                        "display": "Drop down"
-                      }
-                    ],
-                    "text": "Drop down"
-                  }
-                }
-              ],
-              "required": false,
-              "linkId": "ward-ikereku",
-              "text": "Net distribution",
-              "enableWhen": [
-                {
-                  "answerCoding": {
                     "code": "ikereku",
+                    "display": "Ikereku",
                     "system": "https://www.oyo.com/codes/wards"
-                  },
-                  "question": "ward-akinyele",
-                  "operator": "="
-                }
-              ],
-              "answerOption": [
-                {
-                  "valueCoding": {
-                    "code": "ogun-state-water-corporation",
-                    "display": "Ogun state water corporation Arakanga",
-                    "system": "https://www.oyo.com/codes/distributionCenter"
                   }
                 },
                 {
                   "valueCoding": {
-                    "code": "iberekodo-central-mosque",
-                    "display": "Iberekodo Central Mosque",
-                    "system": "https://www.oyo.com/codes/distributionCenter"
+                    "code": "iroko",
+                    "display": "Iroko",
+                    "system": "https://www.oyo.com/codes/wards"
                   }
                 }
+              ],
+              "item": [
+                {
+                  "type": "choice",
+                  "code": [
+                    {
+                      "code": "ward-Iroko",
+                      "display": "Net distribution",
+                      "system": "https://www.oyo.com/codes"
+                    }
+                  ],
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "drop-down",
+                            "display": "Drop down"
+                          }
+                        ],
+                        "text": "Drop down"
+                      }
+                    }
+                  ],
+                  "required": false,
+                  "linkId": "ward-Iroko",
+                  "text": "Net distribution",
+                  "enableWhen": [
+                    {
+                      "answerCoding": {
+                        "code": "iroko",
+                        "system": "https://www.oyo.com/codes/wards"
+                      },
+                      "question": "ward-akinyele",
+                      "operator": "="
+                    },
+                    {
+                      "answerCoding": {
+                        "code": "akinyele",
+                        "system": "https://www.oyo.com/codes/lga"
+                      },
+                      "question": "1",
+                      "operator": "="
+                    }
+                  ],
+                  "enableBehavior": "all",
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "code": "hla-primary-school",
+                        "display": "HLA Primary School",
+                        "system": "https://www.oyo.com/codes/distributionCenter"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "code": "christ-apostolic-church",
+                        "display": "Christ Apostolic Church",
+                        "system": "https://www.oyo.com/codes/distributionCenter"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "choice",
+                  "code": [
+                    {
+                      "code": "ward-ikereku",
+                      "display": "Net distribution",
+                      "system": "https://www.oyo.com/codes"
+                    }
+                  ],
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "drop-down",
+                            "display": "Drop down"
+                          }
+                        ],
+                        "text": "Drop down"
+                      }
+                    }
+                  ],
+                  "required": false,
+                  "linkId": "ward-ikereku",
+                  "text": "Net distribution",
+                  "enableBehavior": "all",
+                  "enableWhen": [
+                    {
+                      "answerCoding": {
+                        "code": "ikereku",
+                        "system": "https://www.oyo.com/codes/wards"
+                      },
+                      "question": "ward-akinyele",
+                      "operator": "="
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "code": "ogun-state-water-corporation",
+                        "display": "Ogun state water corporation Arakanga",
+                        "system": "https://www.oyo.com/codes/distributionCenter"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "code": "iberekodo-central-mosque",
+                        "display": "Iberekodo Central Mosque",
+                        "system": "https://www.oyo.com/codes/distributionCenter"
+                      }
+                    }
+                  ]
+                }
               ]
-            }
-          ]
-        },
-        {
-          "type": "choice",
-          "code": [
-            {
-              "code": "ward-oluyole",
-              "display": "Ward oluyole",
-              "system": "https://www.oyo.com/codes"
             },
-            {
-              "code": "ward-codes",
-              "display": "Ward",
-              "system": "https://www.oyo.com/codes"
-            }
-          ],
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
-              "valueCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/questionnaire-item-control",
-                    "code": "drop-down",
-                    "display": "Drop down"
-                  }
-                ],
-                "text": "Drop down"
-              }
-            }
-          ],
-          "required": false,
-          "linkId": "ward-oluyole",
-          "text": "Ward",
-          "enableWhen": [
-            {
-              "answerCoding": {
-                "code": "oluyole",
-                "system": "https://www.oyo.com/codes/lga"
-              },
-              "question": "1",
-              "operator": "="
-            }
-          ],
-          "answerOption": [
-            {
-              "valueCoding": {
-                "code": "okanhinde",
-                "display": "Okanhinde",
-                "system": "https://www.oyo.com/codes/wards"
-              }
-            },
-            {
-              "valueCoding": {
-                "code": "ayegun",
-                "display": "Ayegun",
-                "system": "https://www.oyo.com/codes/wards"
-              }
-            }
-          ],
-          "item": [
             {
               "type": "choice",
               "code": [
                 {
-                  "code": "ward-okanhinde",
-                  "display": "Net distribution",
+                  "code": "ward-oluyole",
+                  "display": "Ward oluyole",
+                  "system": "https://www.oyo.com/codes"
+                },
+                {
+                  "code": "ward-codes",
+                  "display": "Ward",
                   "system": "https://www.oyo.com/codes"
                 }
               ],
@@ -312,17 +280,10 @@
                 }
               ],
               "required": false,
-              "linkId": "ward-okanhinde",
-              "text": "Net distribution",
+              "linkId": "ward-oluyole",
+              "text": "Ward",
+              "enableBehavior": "all",
               "enableWhen": [
-                {
-                  "answerCoding": {
-                    "code": "okanhinde",
-                    "system": "https://www.oyo.com/codes/wards"
-                  },
-                  "question": "ward-oluyole",
-                  "operator": "="
-                },
                 {
                   "answerCoding": {
                     "code": "oluyole",
@@ -332,122 +293,224 @@
                   "operator": "="
                 }
               ],
-              "enableBehavior": "all",
               "answerOption": [
                 {
                   "valueCoding": {
-                    "code": "olojuoro-school",
-                    "display": "Olojuoro Pry. Sch.",
-                    "system": "https://www.oyo.com/codes/distributionCenter"
-                  }
-                },
-                {
-                  "valueCoding": {
-                    "code": "agbeja-school",
-                    "display": "Agbeja N. P. Sch",
-                    "system": "https://www.oyo.com/codes/distributionCenter"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "choice",
-              "code": [
-                {
-                  "code": "ward-ayegun",
-                  "display": "Net distribution",
-                  "system": "https://www.oyo.com/codes"
-                }
-              ],
-              "extension": [
-                {
-                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
-                  "valueCodeableConcept": {
-                    "coding": [
-                      {
-                        "system": "http://hl7.org/fhir/questionnaire-item-control",
-                        "code": "drop-down",
-                        "display": "Drop down"
-                      }
-                    ],
-                    "text": "Drop down"
-                  }
-                },
-                {
-                  "url": "http://lhcforms.nlm.nih.gov/fhirExt/dataControl",
-                  "valueString": "[]"
-                }
-              ],
-              "required": false,
-              "linkId": "ward-ayegun",
-              "text": "Net distribution",
-              "enableWhen": [
-                {
-                  "answerCoding": {
-                    "code": "ayegun",
+                    "code": "okanhinde",
+                    "display": "Okanhinde",
                     "system": "https://www.oyo.com/codes/wards"
-                  },
-                  "question": "ward-oluyole",
-                  "operator": "="
-                }
-              ],
-              "answerOption": [
+                  }
+                },
                 {
                   "valueCoding": {
-                    "code": "aspen-arena",
-                    "display": "ASPEN ARENA",
-                    "system": "https://www.oyo.com/codes/distributionCenter"
+                    "code": "ayegun",
+                    "display": "Ayegun",
+                    "system": "https://www.oyo.com/codes/wards"
                   }
+                }
+              ],
+              "item": [
+                {
+                  "type": "choice",
+                  "code": [
+                    {
+                      "code": "ward-okanhinde",
+                      "display": "Net distribution",
+                      "system": "https://www.oyo.com/codes"
+                    }
+                  ],
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "drop-down",
+                            "display": "Drop down"
+                          }
+                        ],
+                        "text": "Drop down"
+                      }
+                    }
+                  ],
+                  "required": false,
+                  "linkId": "ward-okanhinde",
+                  "text": "Net distribution",
+                  "enableWhen": [
+                    {
+                      "answerCoding": {
+                        "code": "okanhinde",
+                        "system": "https://www.oyo.com/codes/wards"
+                      },
+                      "question": "ward-oluyole",
+                      "operator": "="
+                    },
+                    {
+                      "answerCoding": {
+                        "code": "oluyole",
+                        "system": "https://www.oyo.com/codes/lga"
+                      },
+                      "question": "1",
+                      "operator": "="
+                    }
+                  ],
+                  "enableBehavior": "all",
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "code": "olojuoro-school",
+                        "display": "Olojuoro Pry. Sch.",
+                        "system": "https://www.oyo.com/codes/distributionCenter"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "code": "agbeja-school",
+                        "display": "Agbeja N. P. Sch",
+                        "system": "https://www.oyo.com/codes/distributionCenter"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "choice",
+                  "code": [
+                    {
+                      "code": "ward-ayegun",
+                      "display": "Net distribution",
+                      "system": "https://www.oyo.com/codes"
+                    }
+                  ],
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "drop-down",
+                            "display": "Drop down"
+                          }
+                        ],
+                        "text": "Drop down"
+                      }
+                    },
+                    {
+                      "url": "http://lhcforms.nlm.nih.gov/fhirExt/dataControl",
+                      "valueString": "[]"
+                    }
+                  ],
+                  "required": false,
+                  "linkId": "ward-ayegun",
+                  "text": "Net distribution",
+                  "enableBehavior": "all",
+                  "enableWhen": [
+                    {
+                      "answerCoding": {
+                        "code": "ayegun",
+                        "system": "https://www.oyo.com/codes/wards"
+                      },
+                      "question": "ward-oluyole",
+                      "operator": "="
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "code": "aspen-arena",
+                        "display": "ASPEN ARENA",
+                        "system": "https://www.oyo.com/codes/distributionCenter"
+                      }
+                    }
+                  ]
                 }
               ]
             }
           ]
+        },
+        {
+          "type": "date",
+          "code": [
+            {
+              "code": "date-codes",
+              "display": "Date",
+              "system": "https://www.oyo.com/codes"
+            }
+          ],
+          "required": true,
+          "linkId": "date-dist",
+          "text": "Date of net distribution"
         }
       ]
     },
     {
-      "type": "integer",
-      "code": [
-        {
-          "code": "number-nets",
-          "display": "Number of nets",
-          "system": "https://www.oyo.com/codes"
-        }
-      ],
+      "linkId": "2",
+      "text": "Dynamic",
+      "type": "group",
       "extension": [
         {
-          "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
-          "valueInteger": 5
-        }
-      ],
-      "required": true,
-      "linkId": "number-nets",
-      "text": "Number of nets"
-    },
-    {
-      "type": "string",
-      "code": [],
-      "required": true,
-      "linkId": "head-of-household",
-      "text": "Initials of the Head of the Household"
-    },
-    {
-      "type": "boolean",
-      "code": [
-        {
-          "code": "phone-number-permission",
-          "display": "Does Head of household agree to provide phone number for healthcare use?"
-        }
-      ],
-      "required": true,
-      "linkId": "phone-number-permission",
-      "text": "Does Head of household agree to provide phone number for healthcare use?",
-      "initial": [
-        {
-          "valueBoolean": "false"
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "page",
+                "display": "Page"
+              }
+            ],
+            "text": "Page"
+          }
         }
       ],
       "item": [
+        {
+          "type": "integer",
+          "readOnly": true,
+          "code": [
+            {
+              "code": "number-nets",
+              "display": "Number of nets",
+              "system": "https://www.oyo.com/codes"
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 5
+            }
+          ],
+          "required": true,
+          "linkId": "number-nets",
+          "text": "Number of nets"
+        },
+        {
+          "type": "string",
+          "readOnly": true,
+          "initial": "test",
+          "code": [],
+          "required": true,
+          "linkId": "head-of-household",
+          "text": "Initials of the Head of the Household"
+        },
+        {
+          "type": "boolean",
+          "code": [
+            {
+              "code": "phone-number-permission",
+              "display": "Does Head of household agree to provide phone number for healthcare use?"
+            }
+          ],
+          "required": true,
+          "linkId": "phone-number-permission",
+          "readOnly": true,
+          "text": "Does Head of household agree to provide phone number for healthcare use?",
+          "initial": [
+            {
+              "valueBoolean": "false"
+            }
+          ]
+        },
         {
           "type": "choice",
           "code": [
@@ -475,6 +538,7 @@
           "required": false,
           "linkId": "country-code",
           "text": "Country code",
+          "readOnly": true,
           "enableWhen": [
             {
               "answerBoolean": true,
@@ -486,29 +550,29 @@
           "answerOption": [
             {
               "valueCoding": {
-                "code": "nigeria",
-                "display": "+234",
+                "code": "+234",
+                "display": "+234 (Nigeria)",
                 "system": "https://countrycode.com/countryCodes"
               }
             },
             {
               "valueCoding": {
-                "code": "india",
-                "display": "+91",
+                "code": "+91",
+                "display": "+91 (India)",
                 "system": "https://countrycode.com/countryCodes"
               }
             },
             {
               "valueCoding": {
-                "code": "usa",
-                "display": "+1",
+                "code": "+1",
+                "display": "+1 (USA)",
                 "system": "https://countrycode.com/countryCodes"
               }
             },
             {
               "valueCoding": {
-                "code": "south-africa",
-                "display": "+27",
+                "code": "+27",
+                "display": "+27 (South Africa)",
                 "system": "https://countrycode.com/countryCodes"
               }
             }
@@ -516,6 +580,12 @@
         },
         {
           "type": "string",
+          "extension":[
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/regex",
+              "valueString": "[0-9]+"
+            }
+          ],
           "code": [
             {
               "code": "phone-number",
@@ -529,12 +599,13 @@
           "enableWhen": [
             {
               "answerBoolean": true,
-              "question": "country-code",
-              "operator": "exists"
+              "question": "phone-number-permission",
+              "operator": "="
             }
           ],
           "enableBehavior": "all"
         }
+
       ]
     }
   ]

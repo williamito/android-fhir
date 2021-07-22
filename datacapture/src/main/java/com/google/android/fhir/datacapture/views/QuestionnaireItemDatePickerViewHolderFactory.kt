@@ -44,11 +44,14 @@ internal object QuestionnaireItemDatePickerViewHolderFactory :
       private lateinit var textDateQuestion: TextView
       private lateinit var textInputEditText: TextInputEditText
       private lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
+      private val readOnly
+        get() = questionnaireItemViewItem.questionnaireItem.readOnly
 
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix)
         textDateQuestion = itemView.findViewById(R.id.question)
         textInputEditText = itemView.findViewById(R.id.textInputEditText)
+
         // Disable direct text input to only allow input from the date picker dialog
         textInputEditText.keyListener = null
         textInputEditText.setOnFocusChangeListener { view: View, hasFocus: Boolean ->
@@ -131,6 +134,7 @@ internal object QuestionnaireItemDatePickerViewHolderFactory :
       @SuppressLint("NewApi") // java.time APIs can be used due to desugaring
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
         this.questionnaireItemViewItem = questionnaireItemViewItem
+        textInputEditText.isClickable = !readOnly
         if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
           prefixTextView.visibility = View.VISIBLE
           prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix

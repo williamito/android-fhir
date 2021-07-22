@@ -35,15 +35,19 @@ internal object QuestionnaireItemCheckBoxGroupViewHolderFactory :
       private lateinit var checkboxGroupHeader: TextView
       private lateinit var checkboxGroup: LinearLayout
       private lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
+      private val readOnly
+        get() = questionnaireItemViewItem.questionnaireItem.readOnly
 
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix)
         checkboxGroup = itemView.findViewById(R.id.checkbox_group)
         checkboxGroupHeader = itemView.findViewById(R.id.checkbox_group_header)
+
       }
 
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
         this.questionnaireItemViewItem = questionnaireItemViewItem
+        checkboxGroup.isClickable = !readOnly
         if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
           prefixTextView.visibility = View.VISIBLE
           prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix

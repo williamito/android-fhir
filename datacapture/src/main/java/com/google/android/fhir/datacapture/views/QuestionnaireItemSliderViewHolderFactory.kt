@@ -33,6 +33,8 @@ internal object QuestionnaireItemSliderViewHolderFactory :
       private lateinit var sliderHeader: TextView
       private lateinit var slider: Slider
       private lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
+      private val readOnly
+        get() = questionnaireItemViewItem.questionnaireItem.readOnly
 
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix)
@@ -42,6 +44,7 @@ internal object QuestionnaireItemSliderViewHolderFactory :
 
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
         this.questionnaireItemViewItem = questionnaireItemViewItem
+        slider.isClickable = !readOnly
         if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
           prefixTextView.visibility = View.VISIBLE
           prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix

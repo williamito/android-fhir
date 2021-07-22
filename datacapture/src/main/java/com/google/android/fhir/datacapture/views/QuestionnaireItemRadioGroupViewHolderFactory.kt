@@ -35,6 +35,8 @@ internal object QuestionnaireItemRadioGroupViewHolderFactory :
       private lateinit var radioHeader: TextView
       private lateinit var radioGroup: RadioGroup
       private lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
+      private val readOnly
+        get() = questionnaireItemViewItem.questionnaireItem.readOnly
 
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix)
@@ -44,6 +46,7 @@ internal object QuestionnaireItemRadioGroupViewHolderFactory :
 
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
         this.questionnaireItemViewItem = questionnaireItemViewItem
+        radioGroup.isClickable = !readOnly
         if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
           prefixTextView.visibility = View.VISIBLE
           prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix

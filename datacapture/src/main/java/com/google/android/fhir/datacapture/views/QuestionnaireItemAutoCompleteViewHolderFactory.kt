@@ -61,6 +61,9 @@ internal object QuestionnaireItemAutoCompleteViewHolderFactory :
       private val canHaveMultipleAnswers
         get() = questionnaireItemViewItem.questionnaireItem.repeats
 
+      private val readOnly
+        get() = questionnaireItemViewItem.questionnaireItem.readOnly
+
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix)
         groupHeader = itemView.findViewById(R.id.group_header)
@@ -130,6 +133,7 @@ internal object QuestionnaireItemAutoCompleteViewHolderFactory :
 
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
         this.questionnaireItemViewItem = questionnaireItemViewItem
+        editText.isClickable = !readOnly
         if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
           prefixTextView.visibility = View.VISIBLE
           prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix

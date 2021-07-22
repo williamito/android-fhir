@@ -37,6 +37,8 @@ internal object QuestionnaireItemDropDownViewHolderFactory :
       private lateinit var autoCompleteTextView: AutoCompleteTextView
       private lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
       private lateinit var context: Context
+      private val readOnly
+        get() = questionnaireItemViewItem.questionnaireItem.readOnly
 
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix)
@@ -47,6 +49,7 @@ internal object QuestionnaireItemDropDownViewHolderFactory :
 
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
         this.questionnaireItemViewItem = questionnaireItemViewItem
+        autoCompleteTextView.isEnabled = !readOnly
         if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
           prefixTextView.visibility = View.VISIBLE
           prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix

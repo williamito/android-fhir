@@ -32,10 +32,13 @@ internal object QuestionnaireItemCheckBoxViewHolderFactory :
       private lateinit var prefixTextView: TextView
       private lateinit var checkBox: CheckBox
       private lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
+      private val readOnly
+        get() = questionnaireItemViewItem.questionnaireItem.readOnly
 
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix)
         checkBox = itemView.findViewById(R.id.check_box)
+
         checkBox.setOnClickListener {
           // if-else block to prevent over-writing of "items" nested within "answer"
           if (questionnaireItemViewItem.singleAnswerOrNull != null) {
@@ -53,6 +56,7 @@ internal object QuestionnaireItemCheckBoxViewHolderFactory :
 
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
         this.questionnaireItemViewItem = questionnaireItemViewItem
+        checkBox.isClickable = !readOnly
         if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
           prefixTextView.visibility = View.VISIBLE
           prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix

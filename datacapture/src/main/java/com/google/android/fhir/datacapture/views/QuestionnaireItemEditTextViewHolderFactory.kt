@@ -43,6 +43,8 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
   private lateinit var textQuestion: TextView
   private lateinit var textInputEditText: TextInputEditText
   private lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
+  private val readOnly
+    get() = questionnaireItemViewItem.questionnaireItem.readOnly
 
   override fun init(itemView: View) {
     prefixTextView = itemView.findViewById(R.id.prefix)
@@ -50,6 +52,7 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
     textInputEditText = itemView.findViewById(R.id.textInputEditText)
     textInputEditText.setRawInputType(rawInputType)
     textInputEditText.isSingleLine = isSingleLine
+
     textInputEditText.doAfterTextChanged { editable ->
       questionnaireItemViewItem.singleAnswerOrNull = getValue(editable.toString())
       questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
@@ -77,6 +80,7 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
 
   override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
     this.questionnaireItemViewItem = questionnaireItemViewItem
+    textInputEditText.isClickable = !readOnly
     if (questionnaireItemViewItem
         .questionnaireItem
         .extension

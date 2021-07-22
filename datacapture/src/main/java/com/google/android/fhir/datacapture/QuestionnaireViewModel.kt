@@ -83,8 +83,8 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
         linkIdToQuestionnaireResponseItemMap[linkId]?.addNestedItemsToAnswer(
           questionnaireItemComponent
         )
-        linkIdToQuestionnaireResponseItemMap[linkId]?.answer?.singleOrNull()?.item?.forEach {
-          linkIdToQuestionnaireResponseItemMap[it.linkId] = it
+        linkIdToQuestionnaireResponseItemMap[linkId]?.answer?.singleOrNull()?.item?.forEach { questionnaireResponseItemComponent ->
+          linkIdToQuestionnaireResponseItemMap[questionnaireResponseItemComponent.linkId] = questionnaireResponseItemComponent
         }
       }
     }
@@ -116,11 +116,11 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
         viewModelScope,
         SharingStarted.Lazily,
         initialValue =
-          getQuestionnaireState(
-            questionnaireItemList = questionnaire.item,
-            questionnaireResponseItemList = questionnaireResponse.item,
-            pagination = questionnaire.getInitialPagination(),
-          )
+        getQuestionnaireState(
+          questionnaireItemList = questionnaire.item,
+          questionnaireResponseItemList = questionnaireResponse.item,
+          pagination = questionnaire.getInitialPagination(),
+        )
       )
 
   /** The current [QuestionnaireResponse] captured by the UI. */
@@ -188,12 +188,12 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
             EnablementEvaluator.evaluate(questionnaireItem) { linkId ->
               QuestionnaireItemWithResponse(
                 questionnaireItem = (linkIdToQuestionnaireItemMap[linkId]
-                    ?: return@evaluate QuestionnaireItemWithResponse(null, null)),
+                  ?: return@evaluate QuestionnaireItemWithResponse(null, null)),
                 questionnaireResponseItem = (linkIdToQuestionnaireResponseItemMap[linkId]
-                    ?: return@evaluate QuestionnaireItemWithResponse(
-                      linkIdToQuestionnaireItemMap[linkId],
-                      null
-                    ))
+                  ?: return@evaluate QuestionnaireItemWithResponse(
+                    linkIdToQuestionnaireItemMap[linkId],
+                    null
+                  ))
               )
             }
           if (enabled) {
@@ -203,16 +203,16 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
               }
             ) +
               getQuestionnaireState(
-                  questionnaireItemList = questionnaireItem.item,
-                  questionnaireResponseItemList =
-                    if (questionnaireResponseItem.answer.isEmpty()) {
-                      questionnaireResponseItem.item
-                    } else {
-                      questionnaireResponseItem.answer.first().item
-                    },
-                  // we're now dealing with nested items, so pagination is no longer a concern
-                  pagination = null,
-                )
+                questionnaireItemList = questionnaireItem.item,
+                questionnaireResponseItemList =
+                if (questionnaireResponseItem.answer.isEmpty()) {
+                  questionnaireResponseItem.item
+                } else {
+                  questionnaireResponseItem.answer.first().item
+                },
+                // we're now dealing with nested items, so pagination is no longer a concern
+                pagination = null,
+              )
                 .items
           } else {
             // Clear answers when enabled items get disabled due to change in answer of the item

@@ -25,11 +25,12 @@ import com.google.android.fhir.datacapture.localizedText
 import com.google.android.fhir.datacapture.validation.QuestionnaireResponseItemValidator
 import com.google.android.fhir.datacapture.validation.ValidationResult
 import com.google.android.material.textfield.TextInputEditText
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import org.hl7.fhir.r4.model.DateTimeType
 import org.hl7.fhir.r4.model.QuestionnaireResponse
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_DATE
+import org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_TIME
 
 internal object QuestionnaireItemDateTimePickerViewHolderFactory :
   QuestionnaireItemViewHolderFactory(R.layout.questionnaire_item_date_time_picker_view) {
@@ -185,7 +186,6 @@ internal object QuestionnaireItemDateTimePickerViewHolderFactory :
       }
     }
 
-  @SuppressLint("NewApi") // java.time APIs can be used due to desugaring
-  val LOCAL_DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE!!
-  val LOCAL_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_TIME!!
+  val LOCAL_DATE_FORMATTER = ISO_LOCAL_DATE!!
+  val LOCAL_TIME_FORMATTER = ISO_LOCAL_TIME!!
 }

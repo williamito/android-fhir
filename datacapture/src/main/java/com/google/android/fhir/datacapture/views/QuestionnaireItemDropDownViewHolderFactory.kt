@@ -49,7 +49,6 @@ internal object QuestionnaireItemDropDownViewHolderFactory :
 
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
         this.questionnaireItemViewItem = questionnaireItemViewItem
-        autoCompleteTextView.isEnabled = !readOnly
         if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
           prefixTextView.visibility = View.VISIBLE
           prefixTextView.text = questionnaireItemViewItem.questionnaireItem.localizedPrefix
@@ -81,6 +80,9 @@ internal object QuestionnaireItemDropDownViewHolderFactory :
               questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
             }
           }
+        if(readOnly){
+          autoCompleteTextView.isEnabled = false
+        }
       }
     }
 }

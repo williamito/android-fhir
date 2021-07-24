@@ -31,10 +31,10 @@ import com.google.android.fhir.datacapture.localizedText
 import com.google.android.fhir.datacapture.validation.QuestionnaireResponseItemValidator
 import com.google.android.fhir.datacapture.validation.ValidationResult
 import com.google.android.material.textfield.TextInputEditText
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import org.hl7.fhir.r4.model.DateType
 import org.hl7.fhir.r4.model.QuestionnaireResponse
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 
 internal object QuestionnaireItemDatePickerViewHolderFactory :
   QuestionnaireItemViewHolderFactory(R.layout.questionnaire_item_date_picker_view) {
@@ -160,7 +160,6 @@ internal object QuestionnaireItemDatePickerViewHolderFactory :
       }
     }
 
-  @SuppressLint("NewApi") // java.time APIs can be used due to desugaring
   val LOCAL_DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE!!
 }
 

@@ -28,7 +28,7 @@ import org.hl7.fhir.r4.model.StringType
  * Any `ViewHolder` containing a `EditText` view that collects text data should use this class.
  */
 internal class QuestionnaireItemEditTextStringViewHolderDelegate(isSingleLine: Boolean) :
-  QuestionnaireItemEditTextViewHolderDelegate(InputType.TYPE_CLASS_TEXT, isSingleLine) {
+  QuestionnaireItemEditTextViewHolderDelegate(InputType.TYPE_TEXT_FLAG_CAP_WORDS, isSingleLine) {
   override fun getValue(
     text: String
   ): QuestionnaireResponse.QuestionnaireResponseItemAnswerComponent? {

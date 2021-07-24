@@ -24,10 +24,9 @@ import android.widget.TimePicker
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
-import java.time.LocalTime
+import org.threeten.bp.LocalTime
 
 internal class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
-  @SuppressLint("NewApi") // Suppress warnings for java.time APIs
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     // Use the current time as the default time in the picker
     val now = LocalTime.now()

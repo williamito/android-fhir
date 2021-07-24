@@ -80,7 +80,6 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
 
   override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
     this.questionnaireItemViewItem = questionnaireItemViewItem
-    textInputEditText.isClickable = !readOnly
     if (questionnaireItemViewItem
         .questionnaireItem
         .extension
@@ -90,6 +89,12 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
         ?.toString() == "[0-9]+"
     ) {
       textInputEditText.inputType = InputType.TYPE_CLASS_PHONE
+    }else{
+      textInputEditText.inputType = rawInputType
+    }
+    if(readOnly){
+      textInputEditText.isClickable = false
+      textInputEditText.isFocusable = false
     }
     if (!questionnaireItemViewItem.questionnaireItem.prefix.isNullOrEmpty()) {
       prefixTextView.visibility = View.VISIBLE
@@ -99,6 +104,13 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
     }
     textQuestion.text = questionnaireItemViewItem.questionnaireItem.localizedText
     textInputEditText.setText(getText(questionnaireItemViewItem.singleAnswerOrNull))
+    applyValidationResult(
+      QuestionnaireResponseItemValidator.validate(
+        questionnaireItemViewItem.questionnaireItem,
+        questionnaireItemViewItem.questionnaireResponseItem,
+        textInputEditText.context
+      )
+    )
   }
 
   /** Returns the answer that should be recorded given the text input by the user. */

@@ -99,6 +99,7 @@ object Dependencies {
   const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
   const val truth = "com.google.truth:truth:${Versions.truth}"
   const val flexBox = "com.google.android.flexbox:flexbox:${Versions.flexBox}"
+  const val threeTenAbp = "com.jakewharton.threetenabp:threetenabp:${Versions.threeTenAbp}"
 
   object Versions {
     object Androidx {
@@ -132,7 +133,7 @@ object Dependencies {
     const val retrofit = "2.7.2"
     const val truth = "1.0.1"
     const val flexBox = "3.0.0"
-
+    const val threeTenAbp = "1.3.1"
     object AndroidxTest {
       const val core = "1.2.0"
       const val extJunit = "1.1.2"

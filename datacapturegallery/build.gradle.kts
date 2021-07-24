@@ -65,4 +65,7 @@ dependencies {
   implementation(project(path = ":datacapture"))
 
   testImplementation(Dependencies.junit)
+
+  implementation(Dependencies.threeTenAbp)
+
 }

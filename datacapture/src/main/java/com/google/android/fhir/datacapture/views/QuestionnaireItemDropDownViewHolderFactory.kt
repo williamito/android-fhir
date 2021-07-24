@@ -83,6 +83,8 @@ internal object QuestionnaireItemDropDownViewHolderFactory :
         if(readOnly){
           autoCompleteTextView.isEnabled = false
         }
+        autoCompleteTextView.dismissDropDown()
+        autoCompleteTextView.requestFocus()
       }
     }
 }

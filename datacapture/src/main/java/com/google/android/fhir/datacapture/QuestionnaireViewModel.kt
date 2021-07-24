@@ -16,6 +16,7 @@
 
 package com.google.android.fhir.datacapture
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -89,6 +90,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
       }
     }
     modificationCount.value += 1
+    Log.d("MODIFICATION",modificationCount.value.toString())
   }
 
   private val pageFlow =
@@ -112,16 +114,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
           pagination = pagination,
         )
       }
-      .stateIn(
-        viewModelScope,
-        SharingStarted.Lazily,
-        initialValue =
-        getQuestionnaireState(
-          questionnaireItemList = questionnaire.item,
-          questionnaireResponseItemList = questionnaireResponse.item,
-          pagination = questionnaire.getInitialPagination(),
-        )
-      )
+
 
   /** The current [QuestionnaireResponse] captured by the UI. */
   fun getQuestionnaireResponse(): QuestionnaireResponse = questionnaireResponse
@@ -197,6 +190,7 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
               )
             }
           if (enabled) {
+            Log.d("PAGINATION",questionnaireItem.linkId)
             listOf(
               QuestionnaireItemViewItem(questionnaireItem, questionnaireResponseItem) {
                 questionnaireResponseItemChangedCallback(questionnaireItem.linkId)

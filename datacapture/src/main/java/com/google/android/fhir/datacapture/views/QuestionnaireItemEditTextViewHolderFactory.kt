@@ -88,7 +88,8 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
         ?.value
         ?.toString() == "[0-9]+"
     ) {
-      textInputEditText.inputType = InputType.TYPE_CLASS_PHONE
+      textInputEditText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED
+      textInputEditText.isSingleLine =true
     }else{
       textInputEditText.inputType = rawInputType
     }

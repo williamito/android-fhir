@@ -72,10 +72,13 @@ internal object QuestionnaireItemDropDownViewHolderFactory :
               position: Int,
               id: Long
             ) {
+              val display  = parent?.getItemAtPosition(position)
               questionnaireItemViewItem.singleAnswerOrNull =
                 QuestionnaireResponse.QuestionnaireResponseItemAnswerComponent()
                   .setValue(
-                    questionnaireItemViewItem.questionnaireItem.answerOption[position].valueCoding
+                    questionnaireItemViewItem.questionnaireItem.answerOption.find{
+                      it.displayString == display
+                    }?.valueCoding
                   )
               questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
             }

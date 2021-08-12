@@ -90,7 +90,6 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
       }
     }
     modificationCount.value += 1
-    Log.d("MODIFICATION",modificationCount.value.toString())
   }
 
   private val pageFlow =
@@ -198,7 +197,6 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
               )
             }
           if (enabled) {
-            Log.d("PAGINATION",questionnaireItem.linkId)
             listOf(
               QuestionnaireItemViewItem(questionnaireItem, questionnaireResponseItem) {
                 questionnaireResponseItemChangedCallback(questionnaireItem.linkId)

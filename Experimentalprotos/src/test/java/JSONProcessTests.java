@@ -292,7 +292,6 @@ public class JSONProcessTests {
 
     Assertions.assertEquals(result, new ArrayList<>());
   }
-
   @Test
   public void nameFilter() throws IOException {
     List<Base> result
@@ -313,5 +312,14 @@ public class JSONProcessTests {
     Assertions.assertEquals("(03) 3410 5613", ((StringType) result.get(1)).getValue());
     Assertions.assertEquals("mobile", ((Enumeration) result.get(2)).getValueAsString());
     Assertions.assertEquals(2, ((PositiveIntType) result.get(3)).getValue());
+  }
+
+  @Test
+  public void telecomWithFilterAndFirst() throws IOException {
+    List<Base> result
+        = new JsonProcess2().processJSON(JSONPatient,
+        "telecom.where(use='mobile').system.first()");
+
+    Assertions.assertEquals("phone", ((Enumeration) result.get(0)).getValueAsString());
   }
 }

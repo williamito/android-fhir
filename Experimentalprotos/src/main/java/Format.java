@@ -53,6 +53,7 @@ public class Format {
         .addName(humanName).addIdentifier(identifier).setBirthDate(newDate)
         .setActive(trueValue).build();
 
+
     System.out.println();
 
     System.out.println(newPatient);

@@ -37,7 +37,7 @@ public class PatientAdapter extends TypeAdapter<Patient> {
     jsonWriter.jsonValue(
         JsonFormat.printer().print((MessageOrBuilder) patient.getBirthDateOrBuilder()));
 
-    patient.get
+//    patient.ge
 
   }
 }

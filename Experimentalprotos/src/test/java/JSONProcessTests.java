@@ -1,3 +1,4 @@
+import com.google.fhir.common.InvalidFhirException;
 import com.google.fhir.r4.core.TestReport.Setup.SetupAction.Assert;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -321,5 +322,10 @@ public class JSONProcessTests {
         "telecom.where(use='mobile').system.first()");
 
     Assertions.assertEquals("phone", ((Enumeration) result.get(0)).getValueAsString());
+  }
+
+  @Test
+  public void generateProto() throws IOException, InvalidFhirException {
+    new JsonFormatGenerate().generateProtoTxt(new String[]{"filename"}, null);
   }
 }

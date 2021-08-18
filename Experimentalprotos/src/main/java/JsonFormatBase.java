@@ -5,7 +5,6 @@ import com.google.fhir.shaded.protobuf.GeneratedMessageV3;
 import com.google.fhir.shaded.protobuf.Message;
 import com.google.gson.JsonParser;
 import com.google.fhir.shaded.protobuf.Message.Builder;
-//import com.google.protobuf.util.JsonFormat;
 import com.google.fhir.common.JsonFormat;
 import com.google.fhir.shaded.protobuf.TextFormat;
 import java.io.File;

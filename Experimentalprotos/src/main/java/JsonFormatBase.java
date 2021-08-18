@@ -22,7 +22,7 @@ public class JsonFormatBase {
   protected JsonFormat.Printer jsonPrinter = JsonFormat.getPrinter();
 
   protected String loadJson(String filename) throws IOException {
-    File file = new File("android-fhir/" + filename);
+    File file = new File("D:/android-fhir/" + filename);
     return Files.asCharSource(file, UTF_8).read();
   }
 
@@ -30,6 +30,10 @@ public class JsonFormatBase {
       throws IOException {
 
     String filename = "/d/android-fhir/example.json";
+
+    String realFileName = name + ".json";
+
+//    jsonParser.merge(loadJson(realFileName), builder);
 
 
     jsonParser.merge("{\n"

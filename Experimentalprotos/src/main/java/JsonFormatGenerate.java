@@ -1,4 +1,5 @@
 import com.google.fhir.common.InvalidFhirException;
+import com.google.fhir.r4.core.Date;
 import com.google.fhir.r4.core.DeviceMetric;
 import com.google.fhir.r4.core.Patient;
 import com.google.fhir.shaded.common.io.Files;

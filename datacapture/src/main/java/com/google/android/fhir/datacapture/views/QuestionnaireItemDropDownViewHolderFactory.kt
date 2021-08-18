@@ -73,14 +73,16 @@ internal object QuestionnaireItemDropDownViewHolderFactory :
               id: Long
             ) {
               val display  = parent?.getItemAtPosition(position)
-              questionnaireItemViewItem.singleAnswerOrNull =
-                QuestionnaireResponse.QuestionnaireResponseItemAnswerComponent()
-                  .setValue(
-                    questionnaireItemViewItem.questionnaireItem.answerOption.find{
-                      it.displayString == display
-                    }?.valueCoding
-                  )
-              questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
+              if(display!=questionnaireItemViewItem.singleAnswerOrNull?.valueCoding?.display) {
+                questionnaireItemViewItem.singleAnswerOrNull =
+                  QuestionnaireResponse.QuestionnaireResponseItemAnswerComponent()
+                    .setValue(
+                      questionnaireItemViewItem.questionnaireItem.answerOption.find {
+                        it.displayString == display
+                      }?.valueCoding
+                    )
+                questionnaireItemViewItem.questionnaireResponseItemChangedCallback()
+              }
             }
           }
         if(readOnly){

@@ -115,7 +115,7 @@ private fun evaluateEnableWhen(
   val (questionnaireItem, questionnaireResponseItem) =
     questionnaireResponseItemRetriever(enableWhen.question)
   if (questionnaireItem != null && questionnaireResponseItem == null) {
-    if (questionnaireItem.initial[0].hasValueCoding()) {
+    if(questionnaireItem.initial[0].hasValueCoding()) {
       return (questionnaireItem.initial[0].valueCoding.code == enableWhen.answerCoding.code)
     } else {
       return false

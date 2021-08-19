@@ -97,10 +97,12 @@ public class JsonFormatBase {
 
   }
 
-  protected void parseToJson(File file, Message.Builder builder) throws IOException {
+  protected String parseToJson(File file, Message.Builder builder) throws IOException {
     textParser.merge(Files.asCharSource(file, UTF_8).read(), builder);
 
-    System.out.println(jsonPrinter.print(builder));
+//    System.out.println(jsonPrinter.print(builder));
+
+    return jsonPrinter.print(builder);
   }
 
 }

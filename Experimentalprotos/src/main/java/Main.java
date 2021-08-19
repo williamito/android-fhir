@@ -11,9 +11,11 @@ public class Main {
 
     File filename = new File("/android-fhir/filename.prototxt").getAbsoluteFile();
 
-    String parsedFilename = new JsonFormatBase().parseToJson(filename, Patient.newBuilder());
+//    String parsedFilename = new JsonFormatBase().parseToJson(filename, Patient.newBuilder());
+//
+//    System.out.println(new JsonProcess2().processJSON(parsedFilename, "name.count()"));
 
-    System.out.println(new JsonProcess2().processJSON(parsedFilename, "name.count()"));
+    System.out.println(new ProtoFHIRPathFiles().evaluate(filename, "name.count()")); 
   }
 
 }

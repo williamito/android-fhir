@@ -65,10 +65,6 @@ import java.util.concurrent.ConcurrentMap;
  * }
  * </pre>
  * <p>
- *
- * @author Inderjeet Singh
- * @author Emmanuel Cron
- * @author Stanley Wang
  */
 public class ProtoTypeAdapter
     implements JsonSerializer<GeneratedMessage>, JsonDeserializer {

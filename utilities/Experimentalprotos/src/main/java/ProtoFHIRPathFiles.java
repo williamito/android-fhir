@@ -24,6 +24,11 @@ public class ProtoFHIRPathFiles {
     return processJSON(json, expressionString);
   }
 
+  public List<Base> evaluate(String protoTxt, String expressionString) throws IOException {
+    String json = new JsonFormatBase().parseToJson(protoTxt, Patient.newBuilder());
+    return processJSON(json, expressionString);
+  }
+
 
   public List<Base> processJSON(String json, String expression)
       throws IOException, UcumException {

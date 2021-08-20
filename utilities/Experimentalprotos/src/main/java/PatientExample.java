@@ -12,25 +12,8 @@ import com.google.protobuf.AbstractMessage.Builder;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class Format {
-  public static java.lang.String toJson(MessageOrBuilder messageOrBuilder) throws IOException {
-    return JsonFormat.printer().print(messageOrBuilder);
-  }
-
-  public static <T extends Message> T fromJson(java.lang.String json, Class<T> clazz) throws IOException {
-    Builder builder = null;
-    try {
-      builder = (Builder) clazz.getMethod("newBuilder").invoke(null);
-    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-        | IllegalArgumentException | SecurityException e) {
-      return null;
-    }
-
-    JsonFormat.parser().ignoringUnknownFields().merge(json, builder);
-
-    return (T) builder.build();
-  }
-
+public class PatientExample {
+  
   public static void main(java.lang.String[] args) throws Exception {
     String name = String.newBuilder().setValue("Kent").build();
 

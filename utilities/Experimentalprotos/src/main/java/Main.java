@@ -1,5 +1,6 @@
 import com.google.fhir.common.InvalidFhirException;
 import com.google.fhir.r4.core.Patient;
+import com.google.fhir.shaded.protobuf.Message;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class Main {
 
     System.out.println(new ProtoFHIRPathFiles().processJSON(firstPatient,
         "name.given"));
+    
+    
 
 //    System.out.println(new ProtoFHIRPathFiles().evaluate(filename,
 //        "name.where(use='official')"));

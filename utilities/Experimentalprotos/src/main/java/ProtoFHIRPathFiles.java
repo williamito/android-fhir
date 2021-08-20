@@ -1,6 +1,14 @@
+import com.google.fhir.r4.core.CompartmentDefinition;
+import com.google.fhir.r4.core.ImplementationGuide.Definition;
+import com.google.fhir.r4.core.MessageHeader;
 import com.google.fhir.r4.core.Patient;
+import com.google.fhir.shaded.protobuf.InvalidProtocolBufferException;
+import com.google.fhir.shaded.protobuf.Message;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +31,49 @@ public class ProtoFHIRPathFiles {
     String json = new JsonFormatBase().parseToJson(protoTxt, Patient.newBuilder());
     return processJSON(json, expressionString);
   }
+  
+  public List<Base> evaluateProtoTxtFileName(String fileName, String expressionString)
+      throws IOException {
+    File file = new File("android-fhir/" + fileName + ".prototxt");
+    return evaluate(file, expressionString);
+  }
 
   public List<Base> evaluate(String protoTxt, String expressionString) throws IOException {
     String json = new JsonFormatBase().parseToJson(protoTxt, Patient.newBuilder());
     return processJSON(json, expressionString);
   }
+
+  public List<Base> evaluateBinary(File protoBinary, String expressionString) throws IOException {
+
+    InputStream binaryInputStream = new FileInputStream(protoBinary);
+
+//    Patient binaryPatient = Patient.parseFrom(binaryInputStream);
+
+    MessageHeader resource = MessageHeader.parseFrom(binaryInputStream);
+    
+    JsonFormatBase jsonFormatBase = new JsonFormatBase();
+
+    String json = jsonFormatBase.parseToJson(resource);
+    
+    List<Base> result = processJSON(json, expressionString);
+
+    return result;
+  }
+  
+  public List<Base> evaluateBinaryResource(File protoBinary, String expressionString, Message message)
+      throws IOException {
+    
+    InputStream binaryInputStream = new FileInputStream(protoBinary);
+    
+    var resource = message.getParserForType().parseFrom(binaryInputStream);
+    
+    String json = new JsonFormatBase().parseToJson(resource);
+    
+    List<Base> result = processJSON(json, expressionString);
+    
+    return result;
+  }
+  
 
 
   public List<Base> processJSON(String json, String expression)

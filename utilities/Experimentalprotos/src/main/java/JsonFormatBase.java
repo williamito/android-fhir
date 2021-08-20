@@ -128,10 +128,7 @@ public class JsonFormatBase {
   }
 
   public String parseToJson(Message message) throws IOException {
-//    textParser.merge(message.toString(), builder);
-
-//    System.out.println(jsonPrinter.print(builder));
-
+    
     return jsonPrinter.print(message);
   }
 

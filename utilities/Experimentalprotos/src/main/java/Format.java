@@ -58,17 +58,8 @@ public class Format {
 
     System.out.println(newPatient);
 
-    TestClass newTest = new TestClass();
-
-    newTest.newMethod();
-
-
-    System.out.println(newTest);
-
     java.lang.String fhirJson = "{ \"active\": true, \"deceasedBoolean\": false, \"gender\": \"male\", \"address\": [ { \"use\": \"home\", \"period\": { \"start\": \"1974-12-25\" }, \"postalCode\": \"3999\", \"type\": \"both\", \"district\": \"Rainbow\", \"line\": [ \"534 Erewhon St\" ], \"text\": \"534 Erewhon St PeasantVille, Rainbow, Vic 3999\", \"state\": \"Vic\", \"city\": \"PleasantVille\" } ], \"id\": \"examle\", \"name\": [ { \"use\": \"official\", \"family\": \"Chalmers\", \"given\": [ \"Peter\", \"James\" ] }, { \"given\": [ \"Jim\" ], \"use\": \"usual\" } ], \"_birthDate\": { \"extension\": [ { \"url\": \"http://hl7.org/fhir/StructureDefinition/patient-birthTime\", \"valueDateTime\": \"1974-12-25T14:35:45-05:00\" } ] }, \"resourceType\": \"Patient\", \"telecom\": [ { \"rank\": 2, \"value\": \"(03) 3410 5613\", \"system\": \"phone\", \"use\": \"mobile\" } ], \"birthDate\": \"1974-12-25\" }";
-
-
-//    JsonFormat.parser().merge(fhirJson, );
+    
   }
 
 

@@ -328,4 +328,5 @@ public class JSONProcessTests {
   public void generateProto() throws IOException, InvalidFhirException {
     new JsonFormatGenerate().generateProtoTxt(new String[]{"filename"}, null);
   }
+  
 }

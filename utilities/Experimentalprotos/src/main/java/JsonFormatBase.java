@@ -107,11 +107,15 @@ public class JsonFormatBase {
 
   protected void createProtoFile(String filename, Message.Builder builder)
       throws IOException {
+    File file = new File("/android-fhir/" + filename + ".prototxt");
+
+    textParser.merge(Files.asCharSource(file, UTF_8).read(), builder);
+
     File newFile = new File("/android-fhir/" + filename + ".proto");
 
     builder.build()
         .writeTo(new FileOutputStream(newFile));
-     
+
     Message newMessage = builder.getDefaultInstanceForType().getParserForType()
         .parseFrom(new FileInputStream(newFile));
 

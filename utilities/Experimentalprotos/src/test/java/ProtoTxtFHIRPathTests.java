@@ -12,9 +12,11 @@ public class ProtoTxtFHIRPathTests {
 
     File file = new File("/android-fhir/testbinary.proto");
 
-    System.out.println(
-        new ProtoFHIRPathFiles().
-            evaluateBinaryResource(file, "Patient.name.count()", Patient.newBuilder().build()));
+    System.out.println(new ProtoFHIRPathFiles().
+        evaluateBinaryResource(file, "Patient.name.count()", Patient.newBuilder()));
+
+    System.out.println(new ProtoFHIRPathFiles().
+        evaluateBinaryResource(file, "name.given", Patient.newBuilder()));
     
     
   }

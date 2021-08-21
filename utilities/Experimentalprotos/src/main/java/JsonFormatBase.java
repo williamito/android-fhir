@@ -5,6 +5,7 @@ import com.google.fhir.shaded.common.io.Files;
 import com.google.fhir.shaded.protobuf.CodedInputStream;
 import com.google.fhir.shaded.protobuf.GeneratedMessageV3;
 import com.google.fhir.shaded.protobuf.Message;
+import com.google.fhir.shaded.protobuf.MessageOrBuilder;
 import com.google.fhir.shaded.protobuf.TextFormat.ParseException;
 import com.google.gson.JsonParser;
 import com.google.fhir.shaded.protobuf.Message.Builder;
@@ -12,6 +13,7 @@ import com.google.fhir.common.JsonFormat;
 import com.google.fhir.shaded.protobuf.TextFormat;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -103,10 +105,24 @@ public class JsonFormatBase {
 
   }
 
+  protected void createProtoFile(String filename, Message.Builder builder)
+      throws IOException {
+    File newFile = new File("/android-fhir/" + filename + ".proto");
+
+    builder.build()
+        .writeTo(new FileOutputStream(newFile));
+     
+    Message newMessage = builder.getDefaultInstanceForType().getParserForType()
+        .parseFrom(new FileInputStream(newFile));
+
+    System.out.println(newMessage);
+  }
+
   protected String parseToJson(File file, Message.Builder builder) throws IOException {
+    
     textParser.merge(Files.asCharSource(file, UTF_8).read(), builder);
 
-//    System.out.println(jsonPrinter.print(builder));
+
     File newFile = new File("/android-fhir/testbinary.proto");
 
     builder.build()

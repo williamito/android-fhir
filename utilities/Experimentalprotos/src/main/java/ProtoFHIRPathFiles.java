@@ -4,6 +4,7 @@ import com.google.fhir.r4.core.MessageHeader;
 import com.google.fhir.r4.core.Patient;
 import com.google.fhir.shaded.protobuf.InvalidProtocolBufferException;
 import com.google.fhir.shaded.protobuf.Message;
+import com.google.fhir.shaded.protobuf.MessageOrBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,12 +61,13 @@ public class ProtoFHIRPathFiles {
     return result;
   }
   
-  public List<Base> evaluateBinaryResource(File protoBinary, String expressionString, Message message)
-      throws IOException {
+  public <T extends MessageOrBuilder> List<Base> evaluateBinaryResource(File protoBinary, String expressionString, 
+      T messageOrBuilder) throws IOException {
     
     InputStream binaryInputStream = new FileInputStream(protoBinary);
     
-    var resource = message.getParserForType().parseFrom(binaryInputStream);
+    var resource = messageOrBuilder.
+        getDefaultInstanceForType().getParserForType().parseFrom(binaryInputStream);
     
     String json = new JsonFormatBase().parseToJson(resource);
     

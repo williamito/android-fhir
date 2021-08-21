@@ -37,72 +37,16 @@ public class JsonFormatBase {
   protected void parseToProto(String name, com.google.fhir.shaded.protobuf.Message.Builder builder)
       throws IOException {
 
-    String filename = "/d/android-fhir/example.json";
+    String realFileName = "/android-fhir/" + name + ".json";
 
-    String realFileName = name + ".json";
-
-//    jsonParser.merge(loadJson(realFileName), builder);
+    jsonParser.merge(loadJson(realFileName), builder);
 
 
-    jsonParser.merge("{\n"
-        + "  \"active\": true,\n"
-        + "  \"deceasedBoolean\": false,\n"
-        + "  \"gender\": \"male\",\n"
-        + "  \"address\": [\n"
-        + "    {\n"
-        + "      \"use\": \"home\",\n"
-        + "      \"period\": {\n"
-        + "        \"start\": \"1974-12-25\"\n"
-        + "      },\n"
-        + "      \"postalCode\": \"3999\",\n"
-        + "      \"type\": \"both\",\n"
-        + "      \"district\": \"Rainbow\",\n"
-        + "      \"line\": [\n"
-        + "        \"534 Erewhon St\"\n"
-        + "      ],\n"
-        + "      \"text\": \"534 Erewhon St PeasantVille, Rainbow, Vic  3999\",\n"
-        + "      \"state\": \"Vic\",\n"
-        + "      \"city\": \"PleasantVille\"\n"
-        + "    }\n"
-        + "  ],\n"
-        + "  \"id\": \"examle\",\n"
-        + "  \"name\": [\n"
-        + "    {\n"
-        + "      \"use\": \"official\",\n"
-        + "      \"family\": \"Chalmers\",\n"
-        + "      \"given\": [\n"
-        + "        \"Peter\",\n"
-        + "        \"James\"\n"
-        + "      ]\n"
-        + "    },\n"
-        + "    {\n"
-        + "      \"given\": [\n"
-        + "        \"Jim\"\n"
-        + "      ],\n"
-        + "      \"use\": \"usual\"\n"
-        + "    }\n"
-        + "  ],\n"
-        + "  \"_birthDate\": {\n"
-        + "    \"extension\": [\n"
-        + "      {\n"
-        + "        \"url\": \"http://hl7.org/fhir/StructureDefinition/patient-birthTime\",\n"
-        + "        \"valueDateTime\": \"1974-12-25T14:35:45-05:00\"\n"
-        + "      }\n"
-        + "    ]\n"
-        + "  },\n"
-        + "  \"resourceType\": \"Patient\",\n"
-        + "  \"telecom\": [\n"
-        + "    {\n"
-        + "      \"rank\": 2,\n"
-        + "      \"value\": \"(03) 3410 5613\",\n"
-        + "      \"system\": \"phone\",\n"
-        + "      \"use\": \"mobile\"\n"
-        + "    }\n"
-        + "  ],\n"
-        + "  \"birthDate\": \"1974-12-25\"\n"
-        + "}", builder);
+  }
 
-
+  protected String parseStringToProto(String json, Message.Builder builder) {
+    jsonParser.merge(json, builder);
+    return builder.toString();
   }
 
   protected void createProtoFile(String filename, Message.Builder builder)

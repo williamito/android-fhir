@@ -49,7 +49,7 @@ public class JsonFormatBase {
     return builder.toString();
   }
 
-  protected void createProtoFile(String filename, Message.Builder builder)
+  protected void createProtoBinaryFile(String filename, Message.Builder builder)
       throws IOException {
     File file = new File("/android-fhir/" + filename + ".prototxt");
 

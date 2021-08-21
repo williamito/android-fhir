@@ -6,7 +6,6 @@ import java.util.List;
 import org.hl7.fhir.r5.model.Base;
 import org.hl7.fhir.r5.model.HumanName;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class ProtoBinaryFHIRPathTests {
@@ -35,7 +34,7 @@ public class ProtoBinaryFHIRPathTests {
   @Test
   public void TestPatientInvariantName() throws IOException {
 
-    new JsonFormatBase().createProtoFile("filename", Patient.newBuilder());
+    new JsonFormatBase().createProtoBinaryFile("filename", Patient.newBuilder());
 
     File file = new File("/android-fhir/filename.proto");
 

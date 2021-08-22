@@ -52,6 +52,18 @@ public class JsonFormatBase {
     this.examplesDir = examplesDir;
   }
 
+  /**
+   * Constructor of the class
+   * @param examplesDir Directory in which the methods of this class are locating and creating files
+   * @param jsonDir The directory in which the json files are, by default set to "/json". If there
+   *                are no separate directories for the files, then this should be set to null
+   * @param protoTxtDir The directory in which the Prototxt files are, by default set to
+   *                    "/prototxt/". If there are no separate directories for the files,
+   *                    then this should be set to null
+   * @param protoBinaryDir The directory in which the Proto binary files are, by default set to
+   *                       "/protobinary/". If there are no separate directories for the files,
+   *                       then this should be set to null
+   */
   public JsonFormatBase(String examplesDir, String jsonDir,
       String protoTxtDir, String protoBinaryDir) {
     this.examplesDir = examplesDir;
@@ -120,6 +132,13 @@ public class JsonFormatBase {
     return null;
   }
 
+  /**
+   * Finds the file with the name specified and converts it into json, merging with the builder
+   * specified
+   * @param name The name of the file in the working directory
+   * @param builder The builder of the resource contained in the file
+   * @throws IOException If the file is not found
+   */
   protected void parseToProto(String name, com.google.fhir.shaded.protobuf.Message.Builder builder)
       throws IOException {
 
@@ -136,7 +155,15 @@ public class JsonFormatBase {
     return builder.toString();
   }
 
-  protected File createProtoBinaryFile(String filename, Message.Builder builder)
+  /**
+   * Creates a proto binary file from a .prototxt file and saves it in the working directory
+   * @param filename The name of the file to be searched for and converted - the extension should
+   *                 NOT be given
+   * @param builder A builder of the type of resource contained in the file
+   * @return The file in proto binary format
+   * @throws IOException If the file is not found
+   */
+  public File createProtoBinaryFile(String filename, Message.Builder builder)
       throws IOException {
     
     File file = getExampleFile(filename, FileType.PROTOTXT);
@@ -163,8 +190,8 @@ public class JsonFormatBase {
     return jsonPrinter.print(builder);
   }
 
-  protected String parseToJson(String json, Message.Builder builder) throws IOException {
-    textParser.merge(json, builder);
+  protected String parseToJson(String proto, Message.Builder builder) throws IOException {
+    textParser.merge(proto, builder);
 
     return jsonPrinter.print(builder);
   }

@@ -23,7 +23,7 @@ import org.hl7.fhir.r5.model.Resource;
 import org.hl7.fhir.r5.utils.FHIRPathEngine;
 import org.hl7.fhir.utilities.Utilities;
 
-public class ProtoFHIRPathFiles {
+public class FHIRPathProtoEvaluator {
 
   private static FHIRPathEngine fp;
   private final Map<String, Resource> resources = new HashMap<>();
@@ -47,8 +47,6 @@ public class ProtoFHIRPathFiles {
   public List<Base> evaluateBinary(File protoBinary, String expressionString) throws IOException {
 
     InputStream binaryInputStream = new FileInputStream(protoBinary);
-
-//    Patient binaryPatient = Patient.parseFrom(binaryInputStream);
 
     MessageHeader resource = MessageHeader.parseFrom(binaryInputStream);
     

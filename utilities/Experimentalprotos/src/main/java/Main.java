@@ -1,10 +1,8 @@
 import com.google.fhir.common.InvalidFhirException;
 import com.google.fhir.r4.core.Patient;
-import com.google.fhir.shaded.protobuf.Message;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.hl7.fhir.r5.model.HumanName;
 
 public class Main {
 
@@ -16,14 +14,14 @@ public class Main {
 
 //    String parsedFilename = new JsonFormatBase().parseToJson(filename, Patient.newBuilder());
 //
-//    System.out.println(new ProtoFHIRPathFiles().processJSON(parsedFilename, "name.count()"));
+//    System.out.println(new FHIRPathProtoEvaluator().processJSON(parsedFilename, "name.count()"));
     File newFile2 = new File("/android-fhir/testbinary.proto");
 
     Patient newPatient = Patient.parseFrom(new FileInputStream(newFile2));
 
     String firstPatient = new JsonFormatBase().parseToJson(newPatient);
 
-    System.out.println(new ProtoFHIRPathFiles().processJSON(firstPatient,
+    System.out.println(new FHIRPathProtoEvaluator().processJSON(firstPatient,
         "name.given"));
     
     
@@ -91,14 +89,14 @@ public class Main {
         + "  ]\n"
         + "}";
 
-    System.out.println(new ProtoFHIRPathFiles().processJSON(JsonPractitioner, "address.use"));
-//    System.out.println(new ProtoFHIRPathFiles().evaluate(filename,
+    System.out.println(new FHIRPathProtoEvaluator().processJSON(JsonPractitioner, "address.use"));
+//    System.out.println(new FHIRPathProtoEvaluator().evaluate(filename,
 //        "name.where(use='official')"));
 
-//    System.out.println(((HumanName) (new ProtoFHIRPathFiles().evaluate(filename,
+//    System.out.println(((HumanName) (new FHIRPathProtoEvaluator().evaluate(filename,
 //        "name.where(use='official')")).get(0)).getFamily());
 //
-//    System.out.println(new ProtoFHIRPathFiles().evaluate("id {\n"
+//    System.out.println(new FHIRPathProtoEvaluator().evaluate("id {\n"
 //        + "  value: \"examle\"\n"
 //        + "}\n"
 //        + "active {\n"

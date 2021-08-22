@@ -1,5 +1,9 @@
 import com.google.fhir.r4.core.Practitioner;
 import java.io.IOException;
+import java.util.List;
+import org.hl7.fhir.r5.model.Base;
+import org.hl7.fhir.r5.model.Reference;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ProtoTxtFHIRPathTests {
@@ -78,8 +82,11 @@ public class ProtoTxtFHIRPathTests {
 
     String practitioner = new JsonFormatBase().parseToJson(string, Practitioner.newBuilder());
 
-    System.out.println(new ProtoFHIRPathFiles().processJSON(practitioner,
-        "qualification.issuer"));
+    List<Base> result = new FHIRPathProtoEvaluator().processJSON(practitioner,
+        "qualification.issuer");
+
+    Assertions.assertEquals("Example University", ((Reference) result.get(0)).getDisplay());
+
   }
 
 }

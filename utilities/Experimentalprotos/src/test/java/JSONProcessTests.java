@@ -1,10 +1,8 @@
 import com.google.fhir.common.InvalidFhirException;
-import com.google.fhir.r4.core.TestReport.Setup.SetupAction.Assert;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.hl7.fhir.r5.model.Base;
 import org.hl7.fhir.r5.model.Enumeration;
@@ -243,14 +241,14 @@ public class JSONProcessTests {
 
   @Test
   public void countName() throws IOException {
-    new ProtoFHIRPathFiles().processJSON(JSONPatient, "name.count()");
+    new FHIRPathProtoEvaluator().processJSON(JSONPatient, "name.count()");
 
     Assertions.assertEquals("[IntegerType[3]]", outputStreamCaptor.toString().trim());
   }
 
   @Test
   public void nameCountCollection() throws IOException {
-    List<Base> result = new ProtoFHIRPathFiles().processJSON(JSONPatient, "name.count()");
+    List<Base> result = new FHIRPathProtoEvaluator().processJSON(JSONPatient, "name.count()");
 
     IntegerType three = new IntegerType(3);
 
@@ -263,7 +261,7 @@ public class JSONProcessTests {
 
   @Test
   public void  patientNameChildren1() throws IOException {
-    new ProtoFHIRPathFiles().processJSON(JSONPatient2, "Patient.name.children()");
+    new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "Patient.name.children()");
 
     Assertions.assertEquals("[Enumeration[official], Chalmers, Peter, James, Enumeration[usual], Jim]",
         outputStreamCaptor.toString().trim());
@@ -272,7 +270,7 @@ public class JSONProcessTests {
   @Test
   public void PatientNameChildren() throws IOException {
     List<Base> result
-        = new ProtoFHIRPathFiles().processJSON(JSONPatient2, "Patient.name.children()");
+        = new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "Patient.name.children()");
 
     ArrayList<Base> expectedChildren = new ArrayList<>();
 
@@ -289,14 +287,14 @@ public class JSONProcessTests {
   @Test
   public void invalidFilter() throws IOException {
     List<Base> result
-        = new ProtoFHIRPathFiles().processJSON(JSONPatient2, "name.where(use='family')");
+        = new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "name.where(use='family')");
 
     Assertions.assertEquals(result, new ArrayList<>());
   }
   @Test
   public void nameFilter() throws IOException {
     List<Base> result
-        = new ProtoFHIRPathFiles().processJSON(JSONPatient2, "name.where(use='official')");
+        = new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "name.where(use='official')");
 
     Assertions.assertEquals("Peter James",
         ((HumanName) result.get(0)).getGivenAsSingleString());
@@ -307,7 +305,7 @@ public class JSONProcessTests {
   @Test
   public void telecomDescendants() throws IOException {
     List<Base> result
-        = new ProtoFHIRPathFiles().processJSON(JSONPatient2, "telecom.descendants()");
+        = new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "telecom.descendants()");
 
     Assertions.assertEquals("phone", ((Enumeration) result.get(0)).getValueAsString());
     Assertions.assertEquals("(03) 3410 5613", ((StringType) result.get(1)).getValue());
@@ -318,7 +316,7 @@ public class JSONProcessTests {
   @Test
   public void telecomWithFilterAndFirst() throws IOException {
     List<Base> result
-        = new ProtoFHIRPathFiles().processJSON(JSONPatient,
+        = new FHIRPathProtoEvaluator().processJSON(JSONPatient,
         "telecom.where(use='mobile').system.first()");
 
     Assertions.assertEquals("phone", ((Enumeration) result.get(0)).getValueAsString());

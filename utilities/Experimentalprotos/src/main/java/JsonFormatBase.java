@@ -7,11 +7,15 @@ import com.google.fhir.common.JsonFormat;
 import com.google.fhir.shaded.protobuf.TextFormat;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.ZoneId;
 
-
+/**
+* @author Deepro choudhury
+*
+*/
 public class JsonFormatBase {
 
   protected JsonFormat.Parser jsonParser
@@ -21,12 +25,20 @@ public class JsonFormatBase {
 
   protected JsonFormat.Printer jsonPrinter = JsonFormat.getPrinter();
   
-  private final String examplesDir = "/android-fhir/utilities/examplefiles";
+  private final String examplesDir;
   
   public enum FileType {
       JSON,
       PROTOTXT,
       PROTOBINARY
+  }
+
+  public JsonFormatBase() {
+    examplesDir = "/android-fhir/utilities/examplefiles";
+  }
+
+  public JsonFormatBase(String examplesDir) {
+    this.examplesDir = examplesDir;
   }
 
   protected String loadJson(String filename) throws IOException {
@@ -65,9 +77,15 @@ public class JsonFormatBase {
       default:
         throw new IllegalArgumentException("Invalid file type");
     }
-    
-    File resultFile = new File(filePath);
-    return resultFile;
+
+    try {
+      File resultFile = new File(filePath);
+      return resultFile;
+    } catch (Exception e) {
+      System.out.println("There was no file with the filename you requested at " + examplesDir);
+    }
+
+    return null;
   }
 
   protected void parseToProto(String name, com.google.fhir.shaded.protobuf.Message.Builder builder)
@@ -82,6 +100,7 @@ public class JsonFormatBase {
 
   protected String parseStringToProto(String json, Message.Builder builder) {
     jsonParser.merge(json, builder);
+
     return builder.toString();
   }
 
@@ -108,18 +127,6 @@ public class JsonFormatBase {
   protected String parseToJson(File file, Message.Builder builder) throws IOException {
     
     textParser.merge(Files.asCharSource(file, UTF_8).read(), builder);
-
-
-    File newFile = new File("/android-fhir/testbinary.proto");
-
-    builder.build()
-        .writeTo(new FileOutputStream(newFile));
-
-    File newFile2 = new File("/android-fhir/testbinary.proto");
-
-    Patient newPatient = Patient.parseFrom(new FileInputStream(newFile2));
-
-    System.out.println(newPatient);
 
     return jsonPrinter.print(builder);
   }

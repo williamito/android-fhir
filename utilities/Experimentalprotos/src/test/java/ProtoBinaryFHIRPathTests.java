@@ -1,4 +1,3 @@
-import com.google.fhir.r4.core.CompositionAttestationModeCode.Builder;
 import com.google.fhir.r4.core.Patient;
 import com.google.fhir.r4.core.Practitioner;
 import java.io.File;
@@ -86,10 +85,10 @@ public class ProtoBinaryFHIRPathTests {
 
     File file = new File("/android-fhir/testbinary.proto");
 
-    System.out.println(new ProtoFHIRPathFiles().
+    System.out.println(new FHIRPathProtoEvaluator().
         evaluateBinaryResource(file, "Patient.name.count()", Patient.newBuilder()));
 
-    System.out.println(new ProtoFHIRPathFiles().
+    System.out.println(new FHIRPathProtoEvaluator().
         evaluateBinaryResource(file, "name.given", Patient.newBuilder()));
 
     
@@ -103,7 +102,7 @@ public class ProtoBinaryFHIRPathTests {
 
     File file = new File("/android-fhir/filename.proto");
 
-    List<Base> result = new ProtoFHIRPathFiles().evaluateBinaryResource(file,
+    List<Base> result = new FHIRPathProtoEvaluator().evaluateBinaryResource(file,
         "name.where(use = 'official')", Patient.newBuilder());
 
     Assertions.assertEquals("Peter James",
@@ -120,7 +119,7 @@ public class ProtoBinaryFHIRPathTests {
 
     String practitioner = new JsonFormatBase().parseToJson(string, Practitioner.newBuilder());
 
-    System.out.println(new ProtoFHIRPathFiles().processJSON(practitioner, 
+    System.out.println(new FHIRPathProtoEvaluator().processJSON(practitioner, 
         "qualification.issuer"));
   }
 

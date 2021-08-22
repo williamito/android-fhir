@@ -1,4 +1,6 @@
 import com.google.fhir.r4.core.Practitioner;
+import com.google.fhirpathproto.FHIRPathProtoEvaluator;
+import com.google.fhirpathproto.JsonFormatBase;
 import java.io.IOException;
 import java.util.List;
 import org.hl7.fhir.r5.model.Base;

@@ -1,3 +1,5 @@
+package com.google.fhirpathproto;
+
 import com.google.fhir.r4.core.Address;
 import com.google.fhir.r4.core.Boolean;
 import com.google.fhir.r4.core.Date;

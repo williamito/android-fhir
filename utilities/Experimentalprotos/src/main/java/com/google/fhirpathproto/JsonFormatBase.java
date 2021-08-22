@@ -1,13 +1,13 @@
+package com.google.fhirpathproto;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.google.fhir.r4.core.Patient;
 import com.google.fhir.shaded.common.io.Files;
 import com.google.fhir.shaded.protobuf.Message;
 import com.google.fhir.common.JsonFormat;
 import com.google.fhir.shaded.protobuf.TextFormat;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.ZoneId;
@@ -25,14 +25,30 @@ public class JsonFormatBase {
 
   protected JsonFormat.Printer jsonPrinter = JsonFormat.getPrinter();
   
-  private final String examplesDir;
+  protected final String examplesDir;
 
-  private String jsonDir = "/json/";
+  protected String jsonDir = "/json/";
 
-  private String protoTxtDir = "/prototxt/";
+  protected String protoTxtDir = "/prototxt/";
 
-  private String protoBinaryDir = "/protobinary/";
-  
+  protected String protoBinaryDir = "/protobinary/";
+
+  public String getExamplesDir() {
+    return examplesDir;
+  }
+
+  public String getJsonDir() {
+    return jsonDir;
+  }
+
+  public String getProtoTxtDir() {
+    return protoTxtDir;
+  }
+
+  public String getProtoBinaryDir() {
+    return protoBinaryDir;
+  }
+
   public enum FileType {
       JSON,
       PROTOTXT,
@@ -80,22 +96,22 @@ public class JsonFormatBase {
    * @throws IOException If the file is not found
    */
   protected String loadJson(String filename) throws IOException {
-    File file = new File(examplesDir + jsonDir + filename);
+    File file = getExampleFile(filename, FileType.JSON);
     return Files.asCharSource(file, UTF_8).read();
   }
   
   public String getProtoBinaryPath(String filename) {
-    String pathName = examplesDir + protoBinaryDir + filename + ".proto";
+    String pathName = getExamplesDir() + getProtoBinaryDir() + filename + ".proto";
     return pathName;
   }
   
   public String getProtoTxtPath(String filename) {
-    String pathName = examplesDir + protoTxtDir + filename + ".prototxt";
+    String pathName = getExamplesDir() + getProtoTxtDir() + filename + ".prototxt";
     return pathName;
   }
   
   public String getJsonPath(String filename) {
-    String pathName = examplesDir + jsonDir + filename + ".json";
+    String pathName = getExamplesDir() + getJsonDir() + filename + ".json";
     return pathName;
   }
 
@@ -126,7 +142,7 @@ public class JsonFormatBase {
       File resultFile = new File(filePath);
       return resultFile;
     } catch (Exception e) {
-      System.out.println("There was no file with the filename you requested at " + examplesDir);
+      System.out.println("There was no file with the filename you requested at " + getExamplesDir());
     }
 
     return null;
@@ -142,14 +158,13 @@ public class JsonFormatBase {
   protected void parseToProto(String name, com.google.fhir.shaded.protobuf.Message.Builder builder)
       throws IOException {
 
-    String realFileName = getJsonPath(name);
 
-    jsonParser.merge(loadJson(realFileName), builder);
+    jsonParser.merge(loadJson(name), builder);
 
 
   }
 
-  protected String parseStringToProto(String json, Message.Builder builder) {
+  public String parseStringToProto(String json, Message.Builder builder) {
     jsonParser.merge(json, builder);
 
     return builder.toString();
@@ -190,7 +205,7 @@ public class JsonFormatBase {
     return jsonPrinter.print(builder);
   }
 
-  protected String parseToJson(String proto, Message.Builder builder) throws IOException {
+  public String parseToJson(String proto, Message.Builder builder) throws IOException {
     textParser.merge(proto, builder);
 
     return jsonPrinter.print(builder);

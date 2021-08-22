@@ -1,13 +1,10 @@
-import com.google.fhir.r4.core.CompartmentDefinition;
-import com.google.fhir.r4.core.ImplementationGuide.Definition;
+package com.google.fhirpathproto;
+
 import com.google.fhir.r4.core.MessageHeader;
 import com.google.fhir.r4.core.Patient;
-import com.google.fhir.shaded.protobuf.InvalidProtocolBufferException;
-import com.google.fhir.shaded.protobuf.Message;
 import com.google.fhir.shaded.protobuf.MessageOrBuilder;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

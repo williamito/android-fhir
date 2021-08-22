@@ -1,4 +1,6 @@
 import com.google.fhir.common.InvalidFhirException;
+import com.google.fhirpathproto.FHIRPathProtoEvaluator;
+import com.google.fhirpathproto.JsonFormatGenerate;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -326,5 +328,22 @@ public class JSONProcessTests {
   public void generateProto() throws IOException, InvalidFhirException {
     new JsonFormatGenerate().generateProtoTxt(new String[]{"filename"}, null);
   }
-  
+
+  @Test
+  public void testBooleanExpressionName() throws IOException {
+    List<Base> result = new FHIRPathProtoEvaluator().processJSON(JSONPatient2,
+        "name.where(use = 'official').empty()");
+
+    Assertions.assertNotNull(result);
+    Assertions.assertEquals("false", result.get(0).primitiveValue());
+  }
+
+  @Test
+  public void testBooleanExpressionName2() throws IOException {
+    List<Base> result = new FHIRPathProtoEvaluator().processJSON(JSONPatient2,
+        "name.where(use = 'family').empty()");
+
+  Assertions.assertNotNull(result);
+  Assertions.assertEquals("true", result.get(0).primitiveValue());
+  }
 }

@@ -1,3 +1,5 @@
+package com.google.fhirpathproto;
+
 import com.google.fhir.common.InvalidFhirException;
 import com.google.fhir.r4.core.Patient;
 import java.io.File;
@@ -7,14 +9,14 @@ import java.io.IOException;
 public class Main {
 
   public static void main(String[] args) throws IOException, InvalidFhirException {
-//    new JsonFormatGenerate()
+//    new java.com.google.fhirpathproto.JsonFormatGenerate()
 //        .generateProtoTxt(new String[] {"label"}, null);
 
     File filename = new File("/android-fhir/filename.prototxt").getAbsoluteFile();
 
-//    String parsedFilename = new JsonFormatBase().parseToJson(filename, Patient.newBuilder());
+//    String parsedFilename = new java.com.google.fhirpathproto.JsonFormatBase().parseToJson(filename, Patient.newBuilder());
 //
-//    System.out.println(new FHIRPathProtoEvaluator().processJSON(parsedFilename, "name.count()"));
+//    System.out.println(new java.com.google.fhirpathproto.FHIRPathProtoEvaluator().processJSON(parsedFilename, "name.count()"));
     File newFile2 = new File("/android-fhir/testbinary.proto");
 
     Patient newPatient = Patient.parseFrom(new FileInputStream(newFile2));
@@ -90,13 +92,13 @@ public class Main {
         + "}";
 
     System.out.println(new FHIRPathProtoEvaluator().processJSON(JsonPractitioner, "address.use"));
-//    System.out.println(new FHIRPathProtoEvaluator().evaluate(filename,
+//    System.out.println(new java.com.google.fhirpathproto.FHIRPathProtoEvaluator().evaluate(filename,
 //        "name.where(use='official')"));
 
-//    System.out.println(((HumanName) (new FHIRPathProtoEvaluator().evaluate(filename,
+//    System.out.println(((HumanName) (new java.com.google.fhirpathproto.FHIRPathProtoEvaluator().evaluate(filename,
 //        "name.where(use='official')")).get(0)).getFamily());
 //
-//    System.out.println(new FHIRPathProtoEvaluator().evaluate("id {\n"
+//    System.out.println(new java.com.google.fhirpathproto.FHIRPathProtoEvaluator().evaluate("id {\n"
 //        + "  value: \"examle\"\n"
 //        + "}\n"
 //        + "active {\n"

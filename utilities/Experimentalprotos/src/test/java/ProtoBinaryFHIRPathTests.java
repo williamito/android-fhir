@@ -1,5 +1,11 @@
+
+import com.google.fhir.common.InvalidFhirException;
 import com.google.fhir.r4.core.Patient;
 import com.google.fhir.r4.core.Practitioner;
+import com.google.fhirpathproto.FHIRPathProtoEvaluator;
+import com.google.fhirpathproto.JsonFormatBase;
+import com.google.fhirpathproto.JsonFormatBase.FileType;
+import com.google.fhirpathproto.JsonFormatGenerate;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -77,7 +83,7 @@ public class ProtoBinaryFHIRPathTests {
 //  @BeforeAll
 //  static void createPatientProtoBinary() throws IOException {
 //    Patient.Builder patientBuilder = Patient.newBuilder();
-//    new JsonFormatBase().createProtoFile("filename", patientBuilder);
+//    new java.com.google.fhirpathproto.JsonFormatBase().createProtoFile("filename", patientBuilder);
 //  }
   
   @Test
@@ -121,6 +127,23 @@ public class ProtoBinaryFHIRPathTests {
 
     System.out.println(new FHIRPathProtoEvaluator().processJSON(practitioner, 
         "qualification.issuer"));
+  }
+
+  @Test
+  public void testBooleanExpressionName() throws IOException, InvalidFhirException {
+    String[] filenames = new String[] {"PatientExample"};
+    Patient.Builder patientBuilder = Patient.newBuilder();
+    new JsonFormatGenerate().generateProtoTxt(filenames, patientBuilder);
+
+    JsonFormatBase jsonFormatBase = new JsonFormatBase();
+    String filePath = jsonFormatBase.getProtoTxtPath("PatientExample");
+    File file = jsonFormatBase.getExampleFile("PatientExample", FileType.PROTOTXT);
+
+    List<Base> result = new FHIRPathProtoEvaluator().evaluate(file,
+        "name.where(use = 'official').empty()");
+
+    Assertions.assertEquals("false", result.get(0).primitiveValue());
+
   }
 
   @Test

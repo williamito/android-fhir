@@ -86,7 +86,13 @@ public class JsonFormatBase {
     String pathName = examplesDir + jsonDir + filename + ".json";
     return pathName;
   }
-  
+
+  /**
+   * Fetches the file specified from the examples directory, or creates one if not found
+   * @param filename The name of the file to be searched for
+   * @param fileType The type of the file, which determines the extension to look for
+   * @return The file if found, or a new file
+   */
   public File getExampleFile(String filename, FileType fileType)  {
     String filePath;
     

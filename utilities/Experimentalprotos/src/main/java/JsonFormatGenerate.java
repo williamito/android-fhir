@@ -20,7 +20,6 @@ public class JsonFormatGenerate extends JsonFormatBase {
       Message.Builder builder = Patient.newBuilder();
       try {
         parseToProto(filename, builder);
-        filename.toString();
       } catch (Exception e) {
         throw new InvalidFhirException("Failed parsing" + filename, e);
       }
@@ -29,20 +28,6 @@ public class JsonFormatGenerate extends JsonFormatBase {
       parseToJson(file, builder);
     }
   }
-
-
-  public void testPatient() throws Exception {
-    String[] files = {
-        "Patient-animal",
-        "Patient-ch-example"
-    };
-    generateProtoTxt(files, DeviceMetric.newBuilder());
-  }
-
-  public static void main(String[] args) throws IOException, InvalidFhirException {
-    new JsonFormatGenerate().generateProtoTxt(new String[]{"filename"}, null);
-  }
-
 
 
 

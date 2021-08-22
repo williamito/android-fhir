@@ -26,6 +26,12 @@ public class JsonFormatBase {
   protected JsonFormat.Printer jsonPrinter = JsonFormat.getPrinter();
   
   private final String examplesDir;
+
+  private String jsonDir = "/json/";
+
+  private String protoTxtDir = "/prototxt/";
+
+  private String protoBinaryDir = "/protobinary/";
   
   public enum FileType {
       JSON,
@@ -37,27 +43,47 @@ public class JsonFormatBase {
     examplesDir = "/android-fhir/utilities/examplefiles";
   }
 
+  /**
+   *
+   * @param examplesDir The directory in which the methods of this class should be searching and
+   *                    creating files
+   */
   public JsonFormatBase(String examplesDir) {
     this.examplesDir = examplesDir;
   }
 
+  public JsonFormatBase(String examplesDir, String jsonDir,
+      String protoTxtDir, String protoBinaryDir) {
+    this.examplesDir = examplesDir;
+    this.jsonDir = jsonDir;
+    this.protoTxtDir = protoTxtDir;
+    this.protoBinaryDir = protoBinaryDir;
+  }
+
+  /**
+   * Loads the json contents of a json file with the specified filename in the examplesDir
+   * @param filename The name of the file to be searched for. The ".json" extension should
+   *                 NOT be given
+   * @return The contents of the JSON file as a string
+   * @throws IOException If the file is not found
+   */
   protected String loadJson(String filename) throws IOException {
-    File file = new File("D:/android-fhir/" + filename);
+    File file = new File(examplesDir + jsonDir + filename);
     return Files.asCharSource(file, UTF_8).read();
   }
   
   public String getProtoBinaryPath(String filename) {
-    String pathName = examplesDir + "/protobinary/" + filename + ".proto";
+    String pathName = examplesDir + protoBinaryDir + filename + ".proto";
     return pathName;
   }
   
   public String getProtoTxtPath(String filename) {
-    String pathName = examplesDir + "/prototxt/" + filename + ".prototxt";
+    String pathName = examplesDir + protoTxtDir + filename + ".prototxt";
     return pathName;
   }
   
   public String getJsonPath(String filename) {
-    String pathName = examplesDir + "/json/" + filename + ".json";
+    String pathName = examplesDir + jsonDir + filename + ".json";
     return pathName;
   }
   

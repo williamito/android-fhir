@@ -188,6 +188,7 @@ public class ProtoTypeAdapter
     this.serializedNameExtensions = serializedNameExtensions;
     this.serializedEnumValueExtensions = serializedEnumValueExtensions;
   }
+  
 
   @Override
   public JsonElement serialize(GeneratedMessage src, Type typeOfSrc,

@@ -7,12 +7,6 @@ import com.google.fhir.r4.core.HumanName;
 import com.google.fhir.r4.core.Identifier;
 import com.google.fhir.r4.core.String;
 import com.google.fhir.r4.core.Patient;
-import com.google.protobuf.Message;
-import com.google.protobuf.MessageOrBuilder;
-import com.google.protobuf.util.JsonFormat;
-import com.google.protobuf.AbstractMessage.Builder;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 public class PatientExample {
   
@@ -20,7 +14,7 @@ public class PatientExample {
     String name = String.newBuilder().setValue("Kent").build();
 
     HumanName humanName = HumanName.newBuilder().addGiven(name).build();
-
+    
     Date newDate = Date.newBuilder().setValueUs(1628174386).build();
 
     Address.Builder addressBuilder = Address.newBuilder();

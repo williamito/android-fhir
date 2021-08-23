@@ -1,5 +1,4 @@
 import com.google.fhir.r4.core.Appointment;
-import com.google.fhir.r4.core.Patient;
 import com.google.fhir.r4.core.Practitioner;
 import com.google.fhirpathproto.FHIRPathProtoEvaluator;
 import com.google.fhirpathproto.JsonFormatBase;
@@ -7,8 +6,9 @@ import com.google.fhirpathproto.JsonFormatBase.FileType;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import org.hl7.fhir.r5.model.Base;
-import org.hl7.fhir.r5.model.Reference;
+import org.hl7.fhir.r4.model.Base;
+import org.hl7.fhir.r4.model.Patient;
+import org.hl7.fhir.r4.model.Reference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -128,6 +128,7 @@ public class ProtoTxtFHIRPathTests {
         ((Reference) tailResult.get(1)).getDisplay());
 
     System.out.println(result.get(0).children());
+    
   }
 
 }

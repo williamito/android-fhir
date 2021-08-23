@@ -9,8 +9,8 @@ import com.google.fhirpathproto.JsonFormatGenerate;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import org.hl7.fhir.r5.model.Base;
-import org.hl7.fhir.r5.model.HumanName;
+import org.hl7.fhir.r4.model.Base;
+import org.hl7.fhir.r4.model.HumanName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

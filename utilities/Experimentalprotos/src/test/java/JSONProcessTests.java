@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import org.hl7.fhir.r5.model.Base;
-import org.hl7.fhir.r5.model.Enumeration;
-import org.hl7.fhir.r5.model.HumanName;
-import org.hl7.fhir.r5.model.IntegerType;
-import org.hl7.fhir.r5.model.PositiveIntType;
-import org.hl7.fhir.r5.model.StringType;
+import org.hl7.fhir.r4.model.Base;
+import org.hl7.fhir.r4.model.Enumeration;
+import org.hl7.fhir.r4.model.HumanName;
+import org.hl7.fhir.r4.model.IntegerType;
+import org.hl7.fhir.r4.model.PositiveIntType;
+import org.hl7.fhir.r4.model.StringType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -276,14 +276,13 @@ public class JSONProcessTests {
 
     ArrayList<Base> expectedChildren = new ArrayList<>();
 
-//    Assertions.assertEquals(result.get(0), expectedChildren.get(0));
     Assertions.assertEquals("official", ((Enumeration) result.get(0)).getValueAsString());
     Assertions.assertEquals("Chalmers", ((StringType) result.get(1)).getValue());
     Assertions.assertEquals("Peter", ((StringType) result.get(2)).getValue());
     Assertions.assertEquals("James", ((StringType) result.get(3)).getValue());
     Assertions.assertEquals("usual", ((Enumeration) result.get(4)).getValueAsString());
     Assertions.assertEquals("Jim", ((StringType) result.get(5)).getValue());
-//    Assertions.assertTrue(result.get(0).equalsShallow(expectedChildren.get(0)));
+
   }
 
   @Test

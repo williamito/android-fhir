@@ -77,6 +77,14 @@
       <version>1.6.2</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/ca.uhn.hapi.fhir/org.hl7.fhir.r4 -->
+    <dependency>
+      <groupId>ca.uhn.hapi.fhir</groupId>
+      <artifactId>org.hl7.fhir.r4</artifactId>
+      <version>5.4.10</version>
+    </dependency>
+
+
 
 
 

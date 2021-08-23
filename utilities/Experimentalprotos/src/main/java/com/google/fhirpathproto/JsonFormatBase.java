@@ -58,7 +58,6 @@ public class JsonFormatBase {
   public JsonFormatBase() {
     examplesDir = "/android-fhir/utilities/examplefiles";
   }
-
   /**
    *
    * @param examplesDir The directory in which the methods of this class should be searching and

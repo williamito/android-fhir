@@ -1,7 +1,6 @@
 package com.google.fhirpathproto;
 
 import com.google.fhir.r4.core.MessageHeader;
-import com.google.fhir.r4.core.Patient;
 import com.google.fhir.shaded.protobuf.Message;
 import com.google.fhir.shaded.protobuf.MessageOrBuilder;
 import java.io.File;
@@ -13,17 +12,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.hl7.fhir.exceptions.UcumException;
-import org.hl7.fhir.r5.context.SimpleWorkerContext;
-import org.hl7.fhir.r5.formats.JsonParser;
-import org.hl7.fhir.r5.model.Base;
-import org.hl7.fhir.r5.model.ExpressionNode;
-import org.hl7.fhir.r5.model.Resource;
-import org.hl7.fhir.r5.utils.FHIRPathEngine;
+import org.hl7.fhir.r4.model.Base;
+import org.hl7.fhir.r4.context.SimpleWorkerContext;
+import org.hl7.fhir.r4.formats.JsonParser;
+
+import org.hl7.fhir.r4.model.ExpressionNode;
+import org.hl7.fhir.r4.model.Resource;
+import org.hl7.fhir.r4.utils.FHIRPathEngine;
 import org.hl7.fhir.utilities.Utilities;
 
 public class FHIRPathProtoEvaluator {
 
-  private static FHIRPathEngine fp;
+  private static FHIRPathEngine fhirPathEngine;
   private final Map<String, Resource> resources = new HashMap<>();
 
   public <T extends Message.Builder> List<Base> 
@@ -38,8 +38,9 @@ public class FHIRPathProtoEvaluator {
     return evaluate(file, expressionString, builder);
   }
 
-  public List<Base> evaluate(String protoTxt, String expressionString) throws IOException {
-    String json = new JsonFormatBase().parseToJson(protoTxt, Patient.newBuilder());
+  public <T extends Message.Builder> List<Base> 
+  evaluate(String protoTxt, String expressionString, T builder) throws IOException {
+    String json = new JsonFormatBase().parseToJson(protoTxt, builder);
     return processJSON(json, expressionString);
   }
 
@@ -77,8 +78,10 @@ public class FHIRPathProtoEvaluator {
 
   public List<Base> processJSON(String json, String expression)
       throws IOException, UcumException {
+    
+    SimpleWorkerContext simpleWorkerContext = new SimpleWorkerContext();
 
-    fp = new FHIRPathEngine(new SimpleWorkerContext());
+    fhirPathEngine = new FHIRPathEngine(simpleWorkerContext);
 
     String input = json;
 
@@ -93,7 +96,7 @@ public class FHIRPathProtoEvaluator {
 
 
     try {
-      node = fp.parse(expression);
+      node = fhirPathEngine.parse(expression);
     } catch (Exception e) {
       System.out.println("Parsing Error");
     }
@@ -101,7 +104,7 @@ public class FHIRPathProtoEvaluator {
     if (node != null) {
       try {
         if (Utilities.noString(input)) {
-          fp.check(null, null, node);
+          fhirPathEngine.check(null, null, node);
         } else {
           res = resources.get(input);
           if (res == null) {
@@ -116,7 +119,7 @@ public class FHIRPathProtoEvaluator {
 
     if (node != null) {
       try {
-        outcome = fp.evaluate(res, node);
+        outcome = fhirPathEngine.evaluate(res, node);
       } catch (Exception e) {
         System.out.println("Execution Error" + e.getMessage());
       }

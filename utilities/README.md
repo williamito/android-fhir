@@ -17,4 +17,4 @@ The user may create a new instance of the `FHIRPathProtoEvaluator` class when th
 
 The conversion between protos and JSON is implemented in 2 main classes, `JSONFormatBase` and `JSONFormatGenerate` (which extends `JSONFormatBase`). If the user wishes, they can create separate instances of those classes to convert their files manually between prototxt and proto binary, proto to JSON, etc. The `JSONFormatBase` class can be instantiated with no parameters in the constructor, in which case a default examples directory inside the repository will be used and the separate directories for the different types of files will keep their standard values. The user can also specify their own directories using an overloaded constructor which takes in string values for the folder of the JSON files, the folder of the ProtoTxt files and the folder of the binary files. 
 
-You can find more in the [documentation]
+You can find more in the [documentation](https://docs.google.com/document/d/15aZA2okP8YaZEReUMIKdn5QHyAK-qih3CVZ7kenJJxQ/)

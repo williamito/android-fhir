@@ -140,7 +140,7 @@ public class ProtoBinaryFHIRPathTests {
     File file = jsonFormatBase.getExampleFile("PatientExample", FileType.PROTOTXT);
 
     List<Base> result = new FHIRPathProtoEvaluator().evaluate(file,
-        "name.where(use = 'official').empty()");
+        "name.where(use = 'official').empty()", patientBuilder);
 
     Assertions.assertEquals("false", result.get(0).primitiveValue());
 

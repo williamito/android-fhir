@@ -2,6 +2,7 @@ package com.google.fhirpathproto;
 
 import com.google.fhir.r4.core.MessageHeader;
 import com.google.fhir.r4.core.Patient;
+import com.google.fhir.shaded.protobuf.Message;
 import com.google.fhir.shaded.protobuf.MessageOrBuilder;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,15 +26,16 @@ public class FHIRPathProtoEvaluator {
   private static FHIRPathEngine fp;
   private final Map<String, Resource> resources = new HashMap<>();
 
-  public List<Base> evaluate(File protoTxt, String expressionString) throws IOException {
-    String json = new JsonFormatBase().parseToJson(protoTxt, Patient.newBuilder());
+  public <T extends Message.Builder> List<Base> 
+  evaluate(File protoTxt, String expressionString, T builder) throws IOException {
+    String json = new JsonFormatBase().parseToJson(protoTxt, builder);
     return processJSON(json, expressionString);
   }
   
-  public List<Base> evaluateProtoTxtFileName(String fileName, String expressionString)
-      throws IOException {
+  public <T extends Message.Builder> List<Base> 
+  evaluateProtoTxtFileName(String fileName, String expressionString, T builder) throws IOException {
     File file = new File("android-fhir/" + fileName + ".prototxt");
-    return evaluate(file, expressionString);
+    return evaluate(file, expressionString, builder);
   }
 
   public List<Base> evaluate(String protoTxt, String expressionString) throws IOException {

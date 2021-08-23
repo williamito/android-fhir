@@ -1,6 +1,10 @@
+import com.google.fhir.r4.core.Appointment;
+import com.google.fhir.r4.core.Patient;
 import com.google.fhir.r4.core.Practitioner;
 import com.google.fhirpathproto.FHIRPathProtoEvaluator;
 import com.google.fhirpathproto.JsonFormatBase;
+import com.google.fhirpathproto.JsonFormatBase.FileType;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import org.hl7.fhir.r5.model.Base;
@@ -89,6 +93,41 @@ public class ProtoTxtFHIRPathTests {
 
     Assertions.assertEquals("Example University", ((Reference) result.get(0)).getDisplay());
 
+  }
+
+  @Test
+  public void testAppointmentExampleAndTail() throws IOException {
+
+    JsonFormatBase jsonFormatBase = new JsonFormatBase();
+
+    File file = jsonFormatBase.getExampleFile("Appointment-example", FileType.PROTOTXT);
+
+    FHIRPathProtoEvaluator fhirPathProtoEvaluator = new FHIRPathProtoEvaluator();
+
+    Appointment.Builder appointmentBuilder = Appointment.newBuilder();
+
+    List<Base> result = fhirPathProtoEvaluator.
+        evaluate(file, "participant.actor", appointmentBuilder);
+
+    Assertions.assertEquals("Peter James Chalmers",
+        ((Reference) result.get(0)).getDisplay());
+
+    Assertions.assertEquals("Dr Adam Careful",
+        ((Reference) result.get(1)).getDisplay());
+
+    Assertions.assertEquals("South Wing, second floor",
+        ((Reference) result.get(2)).getDisplay());
+
+    List<Base> tailResult = fhirPathProtoEvaluator.
+        evaluate(file, "participant.actor.tail()", appointmentBuilder);
+
+    Assertions.assertEquals("Dr Adam Careful",
+        ((Reference) tailResult.get(0)).getDisplay());
+
+    Assertions.assertEquals("South Wing, second floor",
+        ((Reference) tailResult.get(1)).getDisplay());
+
+    System.out.println(result.get(0).children());
   }
 
 }

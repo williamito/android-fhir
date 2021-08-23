@@ -1,5 +1,5 @@
 id {
-  value: "examle"
+  value: "example"
 }
 active {
   value: true

@@ -195,7 +195,7 @@ public class JSONProcessTests {
       + "      \"city\": \"PleasantVille\"\n"
       + "    }\n"
       + "  ],\n"
-      + "  \"id\": \"examle\",\n"
+      + "  \"id\": \"example\",\n"
       + "  \"name\": [\n"
       + "    {\n"
       + "      \"use\": \"official\",\n"

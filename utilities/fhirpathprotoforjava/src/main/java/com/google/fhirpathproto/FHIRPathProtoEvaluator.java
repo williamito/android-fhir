@@ -3,6 +3,7 @@ package com.google.fhirpathproto;
 import com.google.fhir.r4.core.MessageHeader;
 import com.google.fhir.shaded.protobuf.Message;
 import com.google.fhir.shaded.protobuf.MessageOrBuilder;
+import com.google.fhirpathproto.JsonFormatBase.FileType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,20 +22,45 @@ import org.hl7.fhir.r4.model.Resource;
 import org.hl7.fhir.r4.utils.FHIRPathEngine;
 import org.hl7.fhir.utilities.Utilities;
 
+/**
+ * Class to evaluate FHIRPath expressions on FHIRProto resources
+ * @author DeeproChoudhury
+ *
+ */
 public class FHIRPathProtoEvaluator {
 
   private static FHIRPathEngine fhirPathEngine;
   private final Map<String, Resource> resources = new HashMap<>();
 
+  /**
+   * Evaluates a FhirPath Expression for a prototxt file
+   * @param protoTxt The prototxt file which the FHIRPath expression is meant to be used on
+   * @param expressionString The FHIRPath expression as a string
+   * @param builder The builder of the resource type in the file
+   * @param <T> Any type of resource builder
+   * @return A collection of FHIRTypes which is the result of the FHIRPath expression
+   * @throws IOException If the file is not found
+   */
   public <T extends Message.Builder> List<Base> 
   evaluate(File protoTxt, String expressionString, T builder) throws IOException {
     String json = new JsonFormatBase().parseToJson(protoTxt, builder);
     return processJSON(json, expressionString);
   }
-  
+
+  /**
+   * Evaluates a prototxt file in the jsonFormatBase file directory from just the filename
+   * @param fileName The name of the file to be evaluated, no extension required
+   * @param expressionString The FHIRPath expression
+   * @param builder The builder of the resource type in the file
+   * @param jsonFormatBase The class with the specified examples directory
+   * @param <T> Any type of resource builder
+   * @return A collection of FHIRTypes which is the result of the FHIRPath expression
+   * @throws IOException If the file is not found
+   */
   public <T extends Message.Builder> List<Base> 
-  evaluateProtoTxtFileName(String fileName, String expressionString, T builder) throws IOException {
-    File file = new File("android-fhir/" + fileName + ".prototxt");
+  evaluateProtoTxtFileName(String fileName, String expressionString, T builder,
+      JsonFormatBase jsonFormatBase) throws IOException {
+    File file = jsonFormatBase.getExampleFile(fileName, FileType.PROTOTXT);
     return evaluate(file, expressionString, builder);
   }
 
@@ -58,9 +84,18 @@ public class FHIRPathProtoEvaluator {
 
     return result;
   }
-  
-  public <T extends MessageOrBuilder> List<Base> evaluateBinaryResource(File protoBinary, String expressionString, 
-      T messageOrBuilder) throws IOException {
+
+  /**
+   *
+   * @param protoBinary The binary file to be evaluated
+   * @param expressionString The FHIRPath expression
+   * @param messageOrBuilder A resource or a builder type
+   * @param <T> Any type of Message or a builder, must be the same type of resource as in the file
+   * @return A collection of FHIRTypes
+   * @throws IOException
+   */
+  public <T extends MessageOrBuilder> List<Base> evaluateBinaryResource(File protoBinary,
+      String expressionString, T messageOrBuilder) throws IOException {
     
     InputStream binaryInputStream = new FileInputStream(protoBinary);
     
@@ -73,9 +108,16 @@ public class FHIRPathProtoEvaluator {
     
     return result;
   }
-  
 
 
+  /**
+   * Evaluates a FHIRPath expression on a JSON resource
+   * @param json The JSON resource as a string
+   * @param expression The FHIRPath expression as a string
+   * @return A collection of FHIRTypes
+   * @throws IOException
+   * @throws UcumException
+   */
   public List<Base> processJSON(String json, String expression)
       throws IOException, UcumException {
     

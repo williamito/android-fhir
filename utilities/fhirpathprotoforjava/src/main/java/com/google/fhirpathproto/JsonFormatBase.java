@@ -171,20 +171,20 @@ public class JsonFormatBase {
 
   /**
    * Creates a proto binary file from a .prototxt file and saves it in the working directory
-   * @param filename The name of the file to be searched for and converted - the extension should
+   * @param protoTxtFile The name of the file to be searched for and converted - the extension should
    *                 NOT be given
    * @param builder A builder of the type of resource contained in the file
    * @return The file in proto binary format
    * @throws IOException If the file is not found
    */
-  public File createProtoBinaryFile(String filename, Message.Builder builder)
+  public File createProtoBinaryFile(String protoTxtFile, Message.Builder builder)
       throws IOException {
     
-    File file = getExampleFile(filename, FileType.PROTOTXT);
+    File file = getExampleFile(protoTxtFile, FileType.PROTOTXT);
 
     textParser.merge(Files.asCharSource(file, UTF_8).read(), builder);
 
-    File protoFile = getExampleFile(filename, FileType.PROTOBINARY);
+    File protoFile = getExampleFile(protoTxtFile, FileType.PROTOBINARY);
 
     builder.build()
         .writeTo(new FileOutputStream(protoFile));

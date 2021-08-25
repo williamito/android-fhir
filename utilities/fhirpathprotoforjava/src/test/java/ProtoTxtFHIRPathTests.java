@@ -6,8 +6,8 @@ import com.google.fhirpathproto.JsonFormatBase.FileType;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import org.hl7.fhir.exceptions.FHIRException;
 import org.hl7.fhir.r4.model.Base;
-import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.Reference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -79,7 +79,7 @@ public class ProtoTxtFHIRPathTests {
       + "}";
 
   @Test
-  public void TestPractitionerTxt() throws IOException {
+  public void TestPractitionerTxt() throws IOException, FHIRException {
 
     String string = new JsonFormatBase().
         parseStringToProto(jsonPractitioner, Practitioner.newBuilder());
@@ -96,7 +96,7 @@ public class ProtoTxtFHIRPathTests {
   }
 
   @Test
-  public void testAppointmentExampleAndTail() throws IOException {
+  public void testAppointmentExampleAndTail() throws IOException, FHIRException {
 
     JsonFormatBase jsonFormatBase = new JsonFormatBase();
 

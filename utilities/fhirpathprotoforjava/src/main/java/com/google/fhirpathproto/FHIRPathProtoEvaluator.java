@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.hl7.fhir.exceptions.FHIRException;
 import org.hl7.fhir.exceptions.UcumException;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.context.SimpleWorkerContext;
@@ -42,7 +43,7 @@ public class FHIRPathProtoEvaluator {
    * @throws IOException If the file is not found
    */
   public <T extends Message.Builder> List<Base> 
-  evaluate(File protoTxt, String expressionString, T builder) throws IOException {
+  evaluate(File protoTxt, String expressionString, T builder) throws IOException, FHIRException {
     String json = new JsonFormatBase().parseToJson(protoTxt, builder);
     return processJSON(json, expressionString);
   }
@@ -59,18 +60,19 @@ public class FHIRPathProtoEvaluator {
    */
   public <T extends Message.Builder> List<Base> 
   evaluateProtoTxtFileName(String fileName, String expressionString, T builder,
-      JsonFormatBase jsonFormatBase) throws IOException {
+      JsonFormatBase jsonFormatBase) throws IOException, FHIRException {
     File file = jsonFormatBase.getExampleFile(fileName, FileType.PROTOTXT);
     return evaluate(file, expressionString, builder);
   }
 
   public <T extends Message.Builder> List<Base> 
-  evaluate(String protoTxt, String expressionString, T builder) throws IOException {
+  evaluate(String protoTxt, String expressionString, T builder) throws IOException, FHIRException {
     String json = new JsonFormatBase().parseToJson(protoTxt, builder);
     return processJSON(json, expressionString);
   }
 
-  public List<Base> evaluateBinary(File protoBinary, String expressionString) throws IOException {
+  public List<Base> evaluateBinary(File protoBinary, String expressionString)
+      throws IOException, FHIRException {
 
     InputStream binaryInputStream = new FileInputStream(protoBinary);
 
@@ -95,7 +97,7 @@ public class FHIRPathProtoEvaluator {
    * @throws IOException
    */
   public <T extends MessageOrBuilder> List<Base> evaluateBinaryResource(File protoBinary,
-      String expressionString, T messageOrBuilder) throws IOException {
+      String expressionString, T messageOrBuilder) throws IOException, FHIRException {
     
     InputStream binaryInputStream = new FileInputStream(protoBinary);
     
@@ -119,7 +121,7 @@ public class FHIRPathProtoEvaluator {
    * @throws UcumException
    */
   public List<Base> processJSON(String json, String expression)
-      throws IOException, UcumException {
+      throws IOException, FHIRException {
     
     SimpleWorkerContext simpleWorkerContext = new SimpleWorkerContext();
 

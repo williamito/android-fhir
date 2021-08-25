@@ -2,17 +2,22 @@
 import com.google.fhir.common.InvalidFhirException;
 import com.google.fhir.r4.core.Patient;
 import com.google.fhir.r4.core.Practitioner;
+import com.google.fhir.shaded.api.client.util.IOUtils;
 import com.google.fhirpathproto.FHIRPathProtoEvaluator;
 import com.google.fhirpathproto.JsonFormatBase;
 import com.google.fhirpathproto.JsonFormatBase.FileType;
 import com.google.fhirpathproto.JsonFormatGenerate;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import org.hl7.fhir.exceptions.FHIRException;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.HumanName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class ProtoBinaryFHIRPathTests {
   
@@ -79,17 +84,14 @@ public class ProtoBinaryFHIRPathTests {
       + "    }\n"
       + "  ]\n"
       + "}";
-
-//  @BeforeAll
-//  static void createPatientProtoBinary() throws IOException {
-//    Patient.Builder patientBuilder = Patient.newBuilder();
-//    new java.com.google.fhirpathproto.JsonFormatBase().createProtoFile("filename", patientBuilder);
-//  }
+  
   
   @Test
-  public void TestPatientNameCount() throws IOException {
+  public void testPatientNameCount() throws IOException, FHIRException {
+    
+    JsonFormatBase jsonFormatBase = new JsonFormatBase();
 
-    File file = new File("/android-fhir/testbinary.proto");
+    File file = jsonFormatBase.getExampleFile("PatientExample", FileType.PROTOBINARY);
 
     System.out.println(new FHIRPathProtoEvaluator().
         evaluateBinaryResource(file, "Patient.name.count()", Patient.newBuilder()));
@@ -102,11 +104,11 @@ public class ProtoBinaryFHIRPathTests {
   }
 
   @Test
-  public void TestPatientInvariantName() throws IOException {
+  public void testPatientInvariantName() throws IOException, FHIRException {
 
-    new JsonFormatBase().createProtoBinaryFile("filename", Patient.newBuilder());
-
-    File file = new File("/android-fhir/filename.proto");
+    File file = new JsonFormatBase().
+        createProtoBinaryFile("PatientExample", Patient.newBuilder());
+    
 
     List<Base> result = new FHIRPathProtoEvaluator().evaluateBinaryResource(file,
         "name.where(use = 'official')", Patient.newBuilder());
@@ -116,7 +118,7 @@ public class ProtoBinaryFHIRPathTests {
   }
 
   @Test
-  public void TestPractitionerTxt() throws IOException {
+  public void testPractitionerTxt() throws IOException, FHIRException {
 
     String string = new JsonFormatBase().
         parseStringToProto(jsonPractitioner, Practitioner.newBuilder());
@@ -130,13 +132,13 @@ public class ProtoBinaryFHIRPathTests {
   }
 
   @Test
-  public void testBooleanExpressionName() throws IOException, InvalidFhirException {
+  public void testBooleanExpressionName() throws IOException, InvalidFhirException, FHIRException {
     String[] filenames = new String[] {"PatientExample"};
     Patient.Builder patientBuilder = Patient.newBuilder();
     new JsonFormatGenerate().generateProtoTxt(filenames, patientBuilder);
 
     JsonFormatBase jsonFormatBase = new JsonFormatBase();
-    String filePath = jsonFormatBase.getProtoTxtPath("PatientExample");
+
     File file = jsonFormatBase.getExampleFile("PatientExample", FileType.PROTOTXT);
 
     List<Base> result = new FHIRPathProtoEvaluator().evaluate(file,
@@ -147,10 +149,21 @@ public class ProtoBinaryFHIRPathTests {
   }
 
   @Test
-  public void TestConvertToProto() throws IOException {
+  public void testProtoTxtFilePathNotNullIfInWorkingDirectory() {
+
+    JsonFormatBase jsonFormatBase = new JsonFormatBase();
+
+    String filePath = jsonFormatBase.getProtoTxtPath("PatientExample");
+    Assertions.assertNotNull(filePath);
+  }
+
+  @Test
+  public void testCreateBinaryFileFromProto() throws IOException {
 
     Patient.Builder patientBuilder = Patient.newBuilder();
-    new JsonFormatBase().createProtoBinaryFile("filename", patientBuilder);
+    new JsonFormatBase().createProtoBinaryFile("PatientExample", patientBuilder);
+
+    Assertions.assertDoesNotThrow(IOUtils::new);
   }
 
 }

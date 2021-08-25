@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hl7.fhir.exceptions.FHIRException;
 import org.hl7.fhir.r4.model.Base;
 import org.hl7.fhir.r4.model.Enumeration;
 import org.hl7.fhir.r4.model.HumanName;
@@ -242,14 +244,14 @@ public class JSONProcessTests {
 
 
   @Test
-  public void countName() throws IOException {
+  public void countName() throws IOException, FHIRException {
     new FHIRPathProtoEvaluator().processJSON(JSONPatient, "name.count()");
 
     Assertions.assertEquals("[IntegerType[3]]", outputStreamCaptor.toString().trim());
   }
 
   @Test
-  public void nameCountCollection() throws IOException {
+  public void nameCountCollection() throws IOException, FHIRException {
     List<Base> result = new FHIRPathProtoEvaluator().processJSON(JSONPatient, "name.count()");
 
     IntegerType three = new IntegerType(3);
@@ -262,7 +264,7 @@ public class JSONProcessTests {
   }
 
   @Test
-  public void  patientNameChildren1() throws IOException {
+  public void  patientNameChildren1() throws IOException, FHIRException {
     new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "Patient.name.children()");
 
     Assertions.assertEquals("[Enumeration[official], Chalmers, Peter, James, Enumeration[usual], Jim]",
@@ -270,7 +272,7 @@ public class JSONProcessTests {
   }
 
   @Test
-  public void PatientNameChildren() throws IOException {
+  public void PatientNameChildren() throws IOException, FHIRException {
     List<Base> result
         = new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "Patient.name.children()");
 
@@ -286,14 +288,14 @@ public class JSONProcessTests {
   }
 
   @Test
-  public void invalidFilter() throws IOException {
+  public void invalidFilter() throws IOException, FHIRException {
     List<Base> result
         = new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "name.where(use='family')");
 
     Assertions.assertEquals(result, new ArrayList<>());
   }
   @Test
-  public void nameFilter() throws IOException {
+  public void nameFilter() throws IOException, FHIRException {
     List<Base> result
         = new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "name.where(use='official')");
 
@@ -304,7 +306,7 @@ public class JSONProcessTests {
   }
 
   @Test
-  public void telecomDescendants() throws IOException {
+  public void telecomDescendants() throws IOException, FHIRException {
     List<Base> result
         = new FHIRPathProtoEvaluator().processJSON(JSONPatient2, "telecom.descendants()");
 
@@ -315,21 +317,17 @@ public class JSONProcessTests {
   }
 
   @Test
-  public void telecomWithFilterAndFirst() throws IOException {
+  public void telecomWithFilterAndFirst() throws IOException, FHIRException {
     List<Base> result
         = new FHIRPathProtoEvaluator().processJSON(JSONPatient,
         "telecom.where(use='mobile').system.first()");
 
     Assertions.assertEquals("phone", ((Enumeration) result.get(0)).getValueAsString());
   }
+  
 
   @Test
-  public void generateProto() throws IOException, InvalidFhirException {
-    new JsonFormatGenerate().generateProtoTxt(new String[]{"filename"}, null);
-  }
-
-  @Test
-  public void testBooleanExpressionName() throws IOException {
+  public void testBooleanExpressionName() throws IOException, FHIRException {
     List<Base> result = new FHIRPathProtoEvaluator().processJSON(JSONPatient2,
         "name.where(use = 'official').empty()");
 
@@ -338,7 +336,7 @@ public class JSONProcessTests {
   }
 
   @Test
-  public void testBooleanExpressionName2() throws IOException {
+  public void testBooleanExpressionName2() throws IOException, FHIRException {
     List<Base> result = new FHIRPathProtoEvaluator().processJSON(JSONPatient2,
         "name.where(use = 'family').empty()");
 

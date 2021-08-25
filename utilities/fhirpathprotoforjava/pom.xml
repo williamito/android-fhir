@@ -46,13 +46,7 @@
       <artifactId>protobuf-java-util</artifactId>
       <version>3.17.3</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.google.fhir/r4 -->
-    <!-- https://mvnrepository.com/artifact/ca.uhn.hapi.fhir/org.hl7.fhir.r5 -->
-    <dependency>
-      <groupId>ca.uhn.hapi.fhir</groupId>
-      <artifactId>org.hl7.fhir.r5</artifactId>
-      <version>5.4.0</version>
-    </dependency>
+
     <dependency>
       <groupId>ca.uhn.hapi.fhir</groupId>
       <artifactId>hapi-fhir-utilities</artifactId>

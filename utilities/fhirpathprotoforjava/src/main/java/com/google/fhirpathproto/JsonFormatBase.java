@@ -5,11 +5,14 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.google.fhir.shaded.common.io.Files;
 import com.google.fhir.shaded.protobuf.Message;
 import com.google.fhir.common.JsonFormat;
+import com.google.fhir.shaded.protobuf.MessageOrBuilder;
 import com.google.fhir.shaded.protobuf.TextFormat;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.ZoneId;
 
 /**
@@ -195,6 +198,35 @@ public class JsonFormatBase {
     System.out.println(newMessage);
     
     return protoFile;
+  }
+
+  /**
+   * Generates proto binary file from json input
+   * @param jsonFilename Name of Json file to be parsed
+   * @param builder Builder of the resource type of the json input
+   * @return The proto binary file
+   * @throws IOException
+   */
+  public File generateProtoBinary(String jsonFilename, Message.Builder builder)
+      throws IOException {
+
+    File file = getExampleFile(jsonFilename, FileType.JSON);
+
+    jsonParser.merge(Files.asCharSource(file, UTF_8).read(), builder);
+
+    File protoBinaryFile = getExampleFile(jsonFilename, FileType.PROTOBINARY);
+
+    builder.build().writeTo(new FileOutputStream(protoBinaryFile));
+
+    FileInputStream fileInputStream = new FileInputStream(protoBinaryFile);
+
+    Message newMessage = builder.getDefaultInstanceForType()
+        .getParserForType().parseFrom(fileInputStream);
+
+    System.out.println(newMessage);
+
+    return protoBinaryFile;
+
   }
 
   protected String parseToJson(File file, Message.Builder builder) throws IOException {

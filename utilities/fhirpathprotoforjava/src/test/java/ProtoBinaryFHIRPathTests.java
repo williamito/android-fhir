@@ -1,5 +1,7 @@
 
+import ca.uhn.fhir.parser.IJsonLikeParser;
 import com.google.fhir.common.InvalidFhirException;
+import com.google.fhir.r4.core.Appointment;
 import com.google.fhir.r4.core.Patient;
 import com.google.fhir.r4.core.Practitioner;
 import com.google.fhir.shaded.api.client.util.IOUtils;
@@ -162,6 +164,17 @@ public class ProtoBinaryFHIRPathTests {
 
     Patient.Builder patientBuilder = Patient.newBuilder();
     new JsonFormatBase().createProtoBinaryFile("PatientExample", patientBuilder);
+
+    Assertions.assertDoesNotThrow(IOUtils::new);
+  }
+
+  @Test
+  public void testCreateBinaryFileFromJson() throws IOException {
+
+    Appointment.Builder appointmentBuilder = Appointment.newBuilder();
+
+    JsonFormatBase jsonFormatBase = new JsonFormatBase();
+    jsonFormatBase.generateProtoBinary("AppointmentExample", appointmentBuilder);
 
     Assertions.assertDoesNotThrow(IOUtils::new);
   }

@@ -1,6 +1,7 @@
 package com.google.fhirpathproto;
 
 import com.google.fhir.r4.core.MessageHeader;
+import com.google.fhir.shaded.protobuf.InvalidProtocolBufferException;
 import com.google.fhir.shaded.protobuf.Message;
 import com.google.fhir.shaded.protobuf.MessageOrBuilder;
 import com.google.fhirpathproto.JsonFormatBase.FileType;
@@ -94,7 +95,7 @@ public class FHIRPathProtoEvaluator {
    * @param messageOrBuilder A resource or a builder type
    * @param <T> Any type of Message or a builder, must be the same type of resource as in the file
    * @return A collection of FHIRTypes
-   * @throws IOException
+   * @throws IOException If parsing to JSON or processing JSON fails
    */
   public <T extends MessageOrBuilder> List<Base> evaluateBinaryResource(File protoBinary,
       String expressionString, T messageOrBuilder) throws IOException, FHIRException {
@@ -103,22 +104,46 @@ public class FHIRPathProtoEvaluator {
     
     var resource = messageOrBuilder.
         getDefaultInstanceForType().getParserForType().parseFrom(binaryInputStream);
-    
+
     String json = new JsonFormatBase().parseToJson(resource);
-    
+
     List<Base> result = processJSON(json, expressionString);
     
     return result;
   }
 
+  /**
+   * Evaluates a FHIRPath expression on proto binary data expressed a byte array
+   * @param protoBinary The proto binary expressed as a byte array
+   * @param expressionString The FHIRPath expression as a string
+   * @param messageOrBuilder An extension of a message or builder of the same type as expressed
+   *                         in the proto binary data
+   * @param <T> An extension of messageOrBuilder - any type of resource
+   * @return The collection given by the evaluation of the FHIRPath expression on this specific
+   * proto binary resource
+   * @throws IOException If parsing JSON fails
+   * @throws FHIRException If the lexing of the expression and resource fails
+   */
+  public <T extends MessageOrBuilder> List<Base> evaluateBinaryResource(byte[] protoBinary,
+      String expressionString, T messageOrBuilder) throws IOException, FHIRException {
+
+    Message resource =
+        messageOrBuilder.getDefaultInstanceForType().getParserForType().parseFrom(protoBinary);
+
+    String json = new JsonFormatBase().parseToJson(resource);
+
+    List<Base> result = processJSON(json, expressionString);
+
+    return result;
+  }
 
   /**
    * Evaluates a FHIRPath expression on a JSON resource
    * @param json The JSON resource as a string
    * @param expression The FHIRPath expression as a string
    * @return A collection of FHIRTypes
-   * @throws IOException
-   * @throws UcumException
+   * @throws IOException If parsing JSON fails
+   * @throws UcumException If FHIR Parsing fails
    */
   public List<Base> processJSON(String json, String expression)
       throws IOException, FHIRException {

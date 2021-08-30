@@ -4,6 +4,7 @@ import com.google.fhir.common.InvalidFhirException;
 import com.google.fhir.r4.core.Appointment;
 import com.google.fhir.r4.core.Patient;
 import com.google.fhir.r4.core.Practitioner;
+import com.google.fhir.r4.core.UnsignedInt;
 import com.google.fhir.shaded.api.client.util.IOUtils;
 import com.google.fhirpathproto.FHIRPathProtoEvaluator;
 import com.google.fhirpathproto.JsonFormatBase;
@@ -169,12 +170,16 @@ public class ProtoBinaryFHIRPathTests {
   }
 
   @Test
-  public void testCreateBinaryFileFromJson() throws IOException {
+  public void testCreateBinaryFileFromJson()
+      throws IOException, NoSuchFieldException {
 
     Appointment.Builder appointmentBuilder = Appointment.newBuilder();
 
     JsonFormatBase jsonFormatBase = new JsonFormatBase();
     jsonFormatBase.generateProtoBinary("AppointmentExample", appointmentBuilder);
+
+    Assertions.assertEquals(2,
+        appointmentBuilder.getClass().getDeclaredField("priority_").getModifiers());
 
     Assertions.assertDoesNotThrow(IOUtils::new);
   }

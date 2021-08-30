@@ -3,6 +3,7 @@ package com.google.fhirpathproto;
 import com.google.fhir.common.InvalidFhirException;
 import com.google.fhir.shaded.common.io.Files;
 import com.google.fhir.shaded.protobuf.Message;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

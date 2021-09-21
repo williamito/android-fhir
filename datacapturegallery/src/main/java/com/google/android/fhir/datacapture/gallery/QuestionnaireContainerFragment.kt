@@ -28,11 +28,15 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.datacapture.QuestionnaireFragment
 import com.google.android.fhir.datacapture.gallery.databinding.FragmentQuestionnaireContainerBinding
+import com.google.android.fhir.datacapture.mapping.ResourceMapper
+import kotlinx.coroutines.launch
+import org.hl7.fhir.r4.model.Questionnaire
 import org.hl7.fhir.r4.model.QuestionnaireResponse
 
 class QuestionnaireContainerFragment : Fragment() {
@@ -84,10 +88,15 @@ class QuestionnaireContainerFragment : Fragment() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       R.id.action_submit -> {
+        val questionnaire = FhirContext.forR4().newJsonParser().parseResource(viewModel.questionnaire) as Questionnaire
         val questionnaireFragment =
           childFragmentManager.findFragmentByTag(QUESTIONNAIRE_FRAGMENT_TAG) as
             QuestionnaireFragment
         displayQuestionnaireResponse(questionnaireFragment.getQuestionnaireResponse())
+          viewModel.viewModelScope.launch {
+          val entry = ResourceMapper.extract(questionnaire, questionnaireFragment.getQuestionnaireResponse()).entryFirstRep
+        }
+
         true
       }
       android.R.id.home -> {

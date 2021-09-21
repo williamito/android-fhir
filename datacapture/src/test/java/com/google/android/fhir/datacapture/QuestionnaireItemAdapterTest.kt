@@ -394,7 +394,7 @@ class QuestionnaireItemAdapterTest {
     assertThat(expectedItemViewType)
       .isEqualTo(
         QuestionnaireItemAdapter(getQuestionnaireItemViewHolderFactoryMatchers())
-          .getItemViewTypeMapping(questionnaireItemViewItem)
+          .getItemViewTypeMapping(questionnaireItemViewItem.questionnaireItem)
       )
   }
 

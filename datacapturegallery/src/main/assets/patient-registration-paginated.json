@@ -62,6 +62,58 @@
               "valueString": "Family name"
             }
           ]
+        },
+        {
+          "linkId": "1.434",
+          "text": "Last name",
+          "type": "string",
+          "required": true,
+          "maxLength": 50,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-instruction",
+              "valueString": "Family name"
+            }
+          ]
+        },
+        {
+          "linkId": "1.4",
+          "text": "Last name",
+          "type": "string",
+          "required": true,
+          "maxLength": 50,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-instruction",
+              "valueString": "Family name"
+            }
+          ]
+        },
+        {
+          "linkId": "1.35",
+          "text": "Last name",
+          "type": "string",
+          "required": true,
+          "maxLength": 50,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-instruction",
+              "valueString": "Family name"
+            }
+          ]
+        },
+        {
+          "linkId": "1.6",
+          "text": "Last name",
+          "type": "string",
+          "required": true,
+          "maxLength": 50,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-instruction",
+              "valueString": "Family name"
+            }
+          ]
         }
       ]
     },

@@ -19,6 +19,16 @@
       ]
     }
   ],
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+      "valueExpression": {
+        "language": "application/x-fhir-query",
+        "expression": "Patient",
+        "name": "patient"
+      }
+    }
+  ],
   "description" : "The check-in of a patient for the purpose of getting a lab test done.",
   "useContext" : [
     {

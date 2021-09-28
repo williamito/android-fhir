@@ -190,6 +190,13 @@ internal class QuestionnaireViewModel(state: SavedStateHandle) : ViewModel() {
     return options
   }
 
+  /**
+   * Returns current[QuestionnaireResponse] captured by the UI which includes all answers of all
+   * questions.
+   *
+   */
+  fun getQuestionnaireResponseWithAllItems() = questionnaireResponse
+
   private fun createLinkIdToQuestionnaireResponseItemMap(
     questionnaireResponseItemList: List<QuestionnaireResponse.QuestionnaireResponseItemComponent>
   ): MutableMap<String, QuestionnaireResponse.QuestionnaireResponseItemComponent> {

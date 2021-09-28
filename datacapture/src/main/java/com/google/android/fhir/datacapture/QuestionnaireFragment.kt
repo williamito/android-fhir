@@ -97,6 +97,9 @@ open class QuestionnaireFragment : Fragment() {
   // Returns the current questionnaire response
   fun getQuestionnaireResponse() = viewModel.getQuestionnaireResponse()
 
+  // Returns the current questionnaire response with all answers, including those that are not enabled
+  fun getQuestionnaireResponseWithAllItems() = viewModel.getQuestionnaireResponseWithAllItems()
+
   companion object {
     const val BUNDLE_KEY_QUESTIONNAIRE = "questionnaire"
     const val BUNDLE_KEY_QUESTIONNAIRE_RESPONSE = "questionnaire-response"

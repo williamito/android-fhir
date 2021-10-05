@@ -1,0 +1,108 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "family-member-registration",
+  "language": "en",
+  "status": "active",
+  "item": [
+    {
+      "linkId": "bio",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "PR-gender",
+          "type": "choice",
+          "required": true,
+          "text": "Sex",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "female",
+                "display": "Female"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "male",
+                "display": "Male"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "PR-birth-date",
+          "type": "date",
+          "required": true,
+          "text": "Date of Birth"
+        },
+        {
+          "linkId": "PR-age",
+          "type": "integer",
+          "required": true,
+          "text": "Age"
+        },
+        {
+          "linkId": "is_pregnant",
+          "type": "boolean",
+          "text": "Is Pregnant?",
+          "code": [
+            {
+              "system": "https://www.snomed.org",
+              "code": "146799005",
+              "display": "Possible pregnancy"
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "PR-gender",
+              "operator": "=",
+              "answerCoding": {
+                "code": "female"
+              }
+            },
+            {
+              "question": "PR-age",
+              "operator": ">=",
+              "answerInteger": {
+                "code": "15"
+              }
+            }
+          ],
+          "enableBehavior": "all"
+        },
+        {
+          "linkId": "PR-active-hidden-extension",
+          "text": "Is Active?",
+          "type": "boolean",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "PR-active-hidden-property",
+          "text": "Is Active?",
+          "type": "boolean",
+          "hidden": true,
+          "initial": [
+            {
+              "valueBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

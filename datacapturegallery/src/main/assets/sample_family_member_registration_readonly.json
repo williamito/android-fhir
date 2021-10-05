@@ -1,0 +1,16 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "family-member-registration",
+  "language": "en",
+  "status": "active",
+  "item": [
+    {
+      "linkId": "PR-firstname",
+      "type": "string",
+      "readOnly": true,
+      "initial": {
+        "valueString": "John Doe readonly"
+      }
+    }
+  ]
+}

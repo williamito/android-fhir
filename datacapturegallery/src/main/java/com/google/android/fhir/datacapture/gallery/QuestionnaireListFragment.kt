@@ -100,6 +100,31 @@ class QuestionnaireListFragment : Fragment() {
             "HL7 example \"bb\" with questionnaire response to pre-fill answers",
             "hl7-questionnaire-example-bluebook.json",
             "hl7-questionnaireresponse-example-bluebook.json"
+          ),
+          QuestionnaireListItem(
+            "Family Member Registration Enable When on Integer Crashing",
+            "Family Member Registration Form for Ona FhirCore ANC register",
+            "sample_family_member_registration_enablewhen_crashing.json",
+          ),
+          QuestionnaireListItem(
+            "Family Member Registration Enable When Expression",
+            "Family Member Registration Form for Ona FhirCore ANC register",
+            "sample_family_member_registration_enablewhenexpression.json",
+          ),
+          QuestionnaireListItem(
+            "Family Member Registration readonly",
+            "Family Member Registration Form for Ona FhirCore ANC register",
+            "sample_family_member_registration_readonly.json",
+          ),
+          QuestionnaireListItem(
+            "Family Member Registration slider",
+            "Family Member Registration Form for Ona FhirCore ANC register",
+            "sample_family_member_registration_slider.json",
+          ),
+          QuestionnaireListItem(
+            "Family Member Registration calculated expression",
+            "Family Member Registration Form for Ona FhirCore ANC register",
+            "sample_family_member_registration_calculatedexpression.json",
           )
         )
       )

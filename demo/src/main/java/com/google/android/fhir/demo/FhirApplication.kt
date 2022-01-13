@@ -22,12 +22,14 @@ import com.google.android.fhir.DatabaseErrorStrategy.RECREATE_AT_OPEN
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.FhirEngineConfiguration
 import com.google.android.fhir.FhirEngineProvider
+import com.google.android.fhir.datacapture.DataCaptureConfig
 import com.google.android.fhir.demo.data.FhirPeriodicSyncWorker
 import com.google.android.fhir.sync.Sync
 
-class FhirApplication : Application() {
+class FhirApplication : Application(), DataCaptureConfig.Provider {
   // Only initiate the FhirEngine when used for the first time, not when the app is created.
   private val fhirEngine: FhirEngine by lazy { constructFhirEngine() }
+  var dataCaptureConfiguration: DataCaptureConfig? = null
 
   override fun onCreate() {
     super.onCreate()
@@ -35,6 +37,11 @@ class FhirApplication : Application() {
       FhirEngineConfiguration(enableEncryptionIfSupported = true, RECREATE_AT_OPEN)
     )
     Sync.oneTimeSync<FhirPeriodicSyncWorker>(this)
+
+    dataCaptureConfiguration =
+      DataCaptureConfig().apply {
+        attachmentResolver = ReferenceAttachmentResolver(this as Context)
+      }
   }
 
   private fun constructFhirEngine(): FhirEngine {
@@ -44,4 +51,7 @@ class FhirApplication : Application() {
   companion object {
     fun fhirEngine(context: Context) = (context.applicationContext as FhirApplication).fhirEngine
   }
+
+  override fun getDataCaptureConfig(): DataCaptureConfig =
+    dataCaptureConfiguration ?: DataCaptureConfig()
 }

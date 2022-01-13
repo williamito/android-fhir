@@ -17,11 +17,17 @@
 package com.google.android.fhir.datacapture.views
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.fhir.datacapture.R
+import com.google.android.fhir.datacapture.fetchBitmap
+import com.google.android.fhir.datacapture.itemImage
 import com.google.android.fhir.datacapture.localizedPrefixSpanned
 import com.google.android.fhir.datacapture.localizedTextSpanned
 import com.google.android.fhir.datacapture.validation.ValidationResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 internal object QuestionnaireItemDisplayViewHolderFactory :
   QuestionnaireItemViewHolderFactory(R.layout.questionnaire_item_display_view) {
@@ -29,11 +35,13 @@ internal object QuestionnaireItemDisplayViewHolderFactory :
     object : QuestionnaireItemViewHolderDelegate {
       private lateinit var prefixTextView: TextView
       private lateinit var displayTextView: TextView
+      private lateinit var itemImageView: ImageView
       override lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
 
       override fun init(itemView: View) {
         prefixTextView = itemView.findViewById(R.id.prefix_text_view)
         displayTextView = itemView.findViewById(R.id.display_text_view)
+        itemImageView = itemView.findViewById(R.id.itemImage)
       }
 
       override fun bind(questionnaireItemViewItem: QuestionnaireItemViewItem) {
@@ -51,6 +59,21 @@ internal object QuestionnaireItemDisplayViewHolderFactory :
           } else {
             View.VISIBLE
           }
+
+        itemImageView.setImageBitmap(null)
+
+        questionnaireItemViewItem.questionnaireItem.itemImage?.let {
+          GlobalScope.launch {
+            it.fetchBitmap(itemImageView.context)?.run {
+              GlobalScope.launch(Dispatchers.Main) {
+                itemImageView.visibility = View.VISIBLE
+                itemImageView.setImageBitmap(this@run)
+
+                // throw RuntimeException("At last! This has run")
+              }
+            }
+          }
+        }
       }
 
       override fun displayValidationResult(validationResult: ValidationResult) {

@@ -22,15 +22,21 @@ import android.view.View
 import android.view.View.FOCUS_DOWN
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.fhir.datacapture.R
+import com.google.android.fhir.datacapture.fetchBitmap
+import com.google.android.fhir.datacapture.itemImage
 import com.google.android.fhir.datacapture.localizedPrefixSpanned
 import com.google.android.fhir.datacapture.localizedTextSpanned
 import com.google.android.fhir.datacapture.validation.ValidationResult
 import com.google.android.fhir.datacapture.validation.getSingleStringValidationMessage
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.hl7.fhir.r4.model.QuestionnaireResponse
 
 internal abstract class QuestionnaireItemEditTextViewHolderFactory :
@@ -47,6 +53,7 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
   private lateinit var questionTextView: TextView
   private lateinit var textInputLayout: TextInputLayout
   private lateinit var textInputEditText: TextInputEditText
+  private lateinit var itemImageView: ImageView
   override lateinit var questionnaireItemViewItem: QuestionnaireItemViewItem
 
   override fun init(itemView: View) {
@@ -54,6 +61,8 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
     questionTextView = itemView.findViewById(R.id.question_text_view)
     textInputLayout = itemView.findViewById(R.id.text_input_layout)
     textInputEditText = itemView.findViewById(R.id.text_input_edit_text)
+    itemImageView = itemView.findViewById(R.id.itemImage)
+
     textInputEditText.setRawInputType(rawInputType)
     textInputEditText.isSingleLine = isSingleLine
     textInputEditText.doAfterTextChanged { editable: Editable? ->
@@ -87,6 +96,21 @@ internal abstract class QuestionnaireItemEditTextViewHolderDelegate(
         false
       }
       view.focusSearch(FOCUS_DOWN)?.requestFocus(FOCUS_DOWN) ?: false
+    }
+
+    // The RecyclerView is recycling the ImageView therefore making them visible and recycling
+    // images from previous questions
+    itemImageView.setImageBitmap(null)
+
+    questionnaireItemViewItem.questionnaireItem.itemImage?.let {
+      GlobalScope.launch {
+        it.fetchBitmap(itemImageView.context)?.run {
+          GlobalScope.launch(Dispatchers.Main) {
+            itemImageView.visibility = View.VISIBLE
+            itemImageView.setImageBitmap(this@run)
+          }
+        }
+      }
     }
   }
 

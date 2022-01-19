@@ -24,14 +24,15 @@ import android.text.Spanned
 import android.util.Base64
 import android.util.Log
 import androidx.core.text.HtmlCompat
+
 import java.util.Locale
 import org.hl7.fhir.r4.model.Attachment
 import org.hl7.fhir.r4.model.Binary
+import com.google.android.fhir.getLocalizedText
 import org.hl7.fhir.r4.model.BooleanType
 import org.hl7.fhir.r4.model.CodeableConcept
 import org.hl7.fhir.r4.model.Questionnaire
 import org.hl7.fhir.r4.model.QuestionnaireResponse
-import org.hl7.fhir.r4.model.StringType
 
 internal enum class ItemControlTypes(
   val extensionCode: String,
@@ -69,12 +70,6 @@ internal val Questionnaire.QuestionnaireItemComponent.itemControl: ItemControlTy
  */
 internal val Questionnaire.QuestionnaireItemComponent.hasNestedItemsWithinAnswers: Boolean
   get() = item.isNotEmpty() && type != Questionnaire.QuestionnaireItemType.GROUP
-
-private fun StringType.getLocalizedText(
-  lang: String = Locale.getDefault().toLanguageTag()
-): String? {
-  return getTranslation(lang) ?: getTranslation(lang.split("-").first()) ?: value
-}
 
 /** Converts Text with HTML Tag to formated text. */
 private fun String.toSpanned(): Spanned {

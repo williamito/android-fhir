@@ -17,31 +17,30 @@
 import org.gradle.api.publish.maven.MavenPom
 
 object Releases {
-  const val groupId = "com.google.android.fhir"
+  const val groupId = "org.smartregister"
 
   // Libraries
-
   object Common {
     const val artifactId = "common"
-    const val version = "0.1.0-alpha01"
+    const val version = "0.1.0-alpha01-preview3-SNAPSHOT"
     const val name = "Android FHIR Common Library"
   }
 
   object Engine {
     const val artifactId = "engine"
-    const val version = "0.1.0-alpha06"
+    const val version = "0.1.0-alpha06-preview-SNAPSHOT"
     const val name = "Android FHIR Engine Library"
   }
 
   object DataCapture {
     const val artifactId = "data-capture"
-    const val version = "0.1.0-beta02"
+    const val version = "0.1.0-beta02-preview4-SNAPSHOT"
     const val name = "Android FHIR Structured Data Capture Library"
   }
 
   object Workflow {
     const val artifactId = "workflow"
-    const val version = "0.1.0-alpha01"
+    const val version = "0.1.0-alpha01-preview-SNAPSHOT"
     const val name = "Android FHIR Workflow Library"
   }
 

@@ -29,7 +29,6 @@ import org.opencds.cqf.cql.engine.fhir.converter.FhirTypeConverterFactory
 import org.opencds.cqf.cql.engine.fhir.model.R4FhirModelResolver
 import org.opencds.cqf.cql.evaluator.activitydefinition.r4.ActivityDefinitionProcessor
 import org.opencds.cqf.cql.evaluator.builder.Constants
-import org.opencds.cqf.cql.evaluator.builder.CqlEvaluatorBuilder
 import org.opencds.cqf.cql.evaluator.builder.EndpointConverter
 import org.opencds.cqf.cql.evaluator.builder.ModelResolverFactory
 import org.opencds.cqf.cql.evaluator.builder.data.DataProviderFactory
@@ -115,6 +114,8 @@ class FhirOperator(fhirContext: FhirContext, fhirEngine: FhirEngine) {
     )
   private val endpointConverter = EndpointConverter(adapterFactory)
   private val fhirModelResolverFactory = FhirModelResolverFactory()
+  private var cqlEvaluatorBuilder = CqlEvaluatorBuilderExt(libraryContentProvider)
+
   private val libraryProcessor =
     LibraryProcessor(
       fhirContext,
@@ -124,7 +125,7 @@ class FhirOperator(fhirContext: FhirContext, fhirEngine: FhirEngine) {
       terminologyProviderFactory,
       endpointConverter,
       fhirModelResolverFactory
-    ) { CqlEvaluatorBuilder() }
+    ) { cqlEvaluatorBuilder }
 
   private val expressionEvaluator =
     ExpressionEvaluator(
@@ -135,7 +136,7 @@ class FhirOperator(fhirContext: FhirContext, fhirEngine: FhirEngine) {
       terminologyProviderFactory,
       endpointConverter,
       fhirModelResolverFactory
-    ) { CqlEvaluatorBuilder() }
+    ) { cqlEvaluatorBuilder }
   private val activityDefinitionProcessor =
     ActivityDefinitionProcessor(fhirContext, fhirEngineDal, libraryProcessor)
   private val operationParametersParser =

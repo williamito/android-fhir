@@ -16,6 +16,7 @@
 
 package com.google.android.fhir.workflow
 
+import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.search.search
 import kotlinx.coroutines.runBlocking
@@ -24,13 +25,17 @@ import org.hl7.fhir.instance.model.api.IIdType
 import org.hl7.fhir.r4.model.Library
 import org.hl7.fhir.r4.model.Measure
 import org.hl7.fhir.r4.model.Patient
+import org.hl7.fhir.r4.model.Resource
 import org.opencds.cqf.cql.evaluator.fhir.dal.FhirDal
 
 class FhirEngineDal(private val fhirEngine: FhirEngine) : FhirDal {
   val libs = mutableMapOf<String, Library>()
 
-  override fun read(id: IIdType?): IBaseResource {
-    TODO("Not yet implemented")
+  override fun read(id: IIdType): IBaseResource {
+    val clz: Class<Resource> =
+      FhirContext.forR4Cached().getResourceDefinition(id.resourceType).implementingClass as
+        Class<Resource>
+    return runBlocking { fhirEngine.load(clz, id.idPart) }
   }
 
   override fun create(resource: IBaseResource?) {

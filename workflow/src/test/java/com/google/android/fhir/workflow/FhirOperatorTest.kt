@@ -54,6 +54,7 @@ class FhirOperatorTest {
   }
 
   @Test
+  @Ignore
   fun evaluateIndividualSubjectMeasure() = runBlocking {
     val measureReport =
       fhirOperator.evaluateMeasure(
@@ -93,7 +94,7 @@ class FhirOperatorTest {
   }
 
   @Test
-  @Ignore("Refactor the API to accommodate local end points")
+  // @Ignore("Refactor the API to accommodate local end points")
   fun generateCarePlan() = runBlocking {
     assertThat(
         fhirOperator.generateCarePlan(

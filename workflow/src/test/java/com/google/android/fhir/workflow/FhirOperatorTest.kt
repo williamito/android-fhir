@@ -96,13 +96,16 @@ class FhirOperatorTest {
   @Test
   // @Ignore("Refactor the API to accommodate local end points")
   fun generateCarePlan() = runBlocking {
-    assertThat(
-        fhirOperator.generateCarePlan(
-          planDefinitionId = "plandefinition-RuleFilters-1.0.0",
-          patientId = "Reportable",
-          encounterId = "reportable-encounter"
-        )
-      )
+    val cp = fhirOperator.generateCarePlan(
+      planDefinitionId = "plandefinition-RuleFilters-1.0.0",
+      patientId = "Reportable",
+      encounterId = "reportable-encounter"
+    )
+
+    val s = FhirContext.forR4Cached().newJsonParser().encodeResourceToString(cp)
+    println(s)
+    assertThat(cp)
+
       .isNotNull()
   }
 

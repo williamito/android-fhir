@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Search</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            engine
+                    </a>
+            </div>
+            <div class="library-version">
+1.0.0            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":engine:dokkaHtml/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="engine::com.google.android.fhir.search/Search///PointingToDeclaration//-1683276876">
+  <div class="breadcrumbs"><a href="../../../index.html">engine</a><span class="delimiter">/</span><a href="../index.html">com.google.android.fhir.search</a><span class="delimiter">/</span><span class="current">Search</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Search</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Search</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>type<span class="token operator">: </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">var </span>count<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">var </span>from<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="../-base-search/index.html">BaseSearch</a></div><p class="paragraph">Provides a fluent API for building FHIR search queries within the Android FHIR Engine, supporting standard FHIR search parameters. This Domain Specific Language (DSL) offers a convenient and expressive way to search for resources based on various criteria, including:</p><ul><li><p class="paragraph"><strong>Resource Type</strong>: Specify the type of resource to search for (e.g., <code class="lang-kotlin">Patient</code>, <code class="lang-kotlin">Observation</code>).</p></li><li><p class="paragraph"><strong>Search Parameters</strong>: Utilize FHIR search parameters to define the search criteria (e.g., <code class="lang-kotlin">Patient.GIVEN</code>, <code class="lang-kotlin">Observation.CODE</code>).</p></li><li><p class="paragraph"><strong>Filter Values</strong>: Provide specific values to filter the search results (e.g., &quot;Alice&quot; for <code class="lang-kotlin">Patient.GIVEN</code>).</p></li><li><p class="paragraph"><strong>Modifiers</strong>: Apply modifiers to string-based search parameters to refine the search criteria (e.g., <code class="lang-kotlin">StringFilterModifier.CONTAINS</code>).</p></li><li><p class="paragraph"><strong>Sorting</strong>: Order search results based on specified parameters and sort direction (e.g., <code class="lang-kotlin">Patient.FAMILY</code> in ascending order).</p></li><li><p class="paragraph"><strong>Result Modification</strong>: Limit the number of returned results and specify the starting index.</p></li><li><p class="paragraph"><strong>Reverse Chaining</strong>: Search for resources based on other resources that reference them using the <code class="lang-kotlin">has</code> function.</p></li><li><p class="paragraph"><strong>Include and RevInclude</strong>: Include additional referenced resources in the search results using the <code class="lang-kotlin">include</code> and <code class="lang-kotlin">revInclude</code> functions.</p></li></ul><p class="paragraph">Example Usage:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">// Search for all Patient resources with the given name of exactly &quot;Kiran&quot;<br>val patients = fhirEngine.search&lt;Patient&gt; {<br> filter(Patient.GIVEN, {<br>   value = &quot;Kiran&quot;<br>   modifier = StringFilterModifier.MATCHES_EXACTLY<br> })<br>}<br><br>// Search for all Patients where they are the subject of an Observation with the code<br>// &quot;http://snomed.info/sct|386661006&quot; or &quot;http://loinc.org|45701-0&quot; (different codes for fever).<br>val patients = fhirEngine.search&lt;Patient&gt; {<br> has&lt;Observation&gt;(Observation.SUBJECT) {<br>   filter(<br>     Observation.CODE,<br>     {<br>       of(Coding(&quot;http://snomed.info/sct&quot;, &quot;386661006&quot;, &quot;Fever&quot; ))<br>     }, {<br>       of(Coding(&quot;http://loinc.org&quot;, &quot;45701-0&quot;, &quot;Fever&quot;))<br>     }<br>   )<br> }<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">See also:</p><ul><li><p class="paragraph"><a href="https://www.hl7.org/fhir/search.html">FHIR Search documentation</a></p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="509827178%2FConstructors%2F-1683276876" anchor-label="Search" id="509827178%2FConstructors%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-search.html"><span><span>Search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="509827178%2FConstructors%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a><span class="token punctuation">, </span></span><span class="parameter ">count<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">from<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1662378186%2FProperties%2F-1683276876" anchor-label="count" id="1662378186%2FProperties%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="count.html"><span><span>count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1662378186%2FProperties%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">var </span><a href="count.html">count</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Limits the number of search results returned. If not specified, all matching resources will be returned.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="88553623%2FProperties%2F-1683276876" anchor-label="from" id="88553623%2FProperties%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from.html"><span><span>from</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="88553623%2FProperties%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">var </span><a href="from.html">from</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Defines the starting index for the returned search results. This allows for pagination of results. If not specified, the search will start from the first matching resource.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="855732594%2FProperties%2F-1683276876" anchor-label="operation" id="855732594%2FProperties%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="operation.html"><span><span>operation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="855732594%2FProperties%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">var </span><a href="operation.html">operation</a><span class="token operator">: </span><a href="../-operation/index.html">Operation</a></div><div class="brief "><p class="paragraph">The logical operator to use when combining multiple filters. Defaults to <a href="../-operation/-a-n-d/index.html">Operation.AND</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="132342535%2FProperties%2F-1683276876" anchor-label="type" id="132342535%2FProperties%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="type.html"><span><span>type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="132342535%2FProperties%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="type.html">type</a><span class="token operator">: </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a></div><div class="brief "><p class="paragraph">The type of FHIR resource to search for.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1385843536%2FFunctions%2F-1683276876" anchor-label="applyFilterParam" id="-1385843536%2FFunctions%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.google.android.fhir.search.query/-x-fhir-query-translator/apply-filter-param.html"><span>apply</span><wbr></wbr><span>Filter</span><wbr></wbr><span><span>Param</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1385843536%2FFunctions%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Search</a><span class="token punctuation">.</span><a href="../../com.google.android.fhir.search.query/-x-fhir-query-translator/apply-filter-param.html"><span class="token function">applyFilterParam</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">param<span class="token operator">: </span><a href="../../com.google.android.fhir.index/-search-param-definition/index.html">SearchParamDefinition</a><span class="token punctuation">, </span></span><span class="parameter ">filterValue<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2119790711%2FFunctions%2F-1683276876" anchor-label="filter" id="-2119790711%2FFunctions%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="filter.html"><span><span>filter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2119790711%2FFunctions%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="filter.html"><span class="token function">filter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dateParameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/DateClientParam///PointingToDeclaration/">DateClientParam</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>init<span class="token operator">: </span><a href="../../com.google.android.fhir.search.filter/-date-param-filter-criterion/index.html">DateParamFilterCriterion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">operation<span class="token operator">: </span><a href="../-operation/index.html">Operation</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a filter criterion to the search query based on a date-type search parameter.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="filter.html"><span class="token function">filter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">numberParameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/NumberClientParam///PointingToDeclaration/">NumberClientParam</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>init<span class="token operator">: </span><a href="../../com.google.android.fhir.search.filter/-number-param-filter-criterion/index.html">NumberParamFilterCriterion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">operation<span class="token operator">: </span><a href="../-operation/index.html">Operation</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a filter criterion to the search query based on a number-type search parameter.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="filter.html"><span class="token function">filter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">quantityParameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/QuantityClientParam///PointingToDeclaration/">QuantityClientParam</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>init<span class="token operator">: </span><a href="../../com.google.android.fhir.search.filter/-quantity-param-filter-criterion/index.html">QuantityParamFilterCriterion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">operation<span class="token operator">: </span><a href="../-operation/index.html">Operation</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a filter criterion to the search query based on a quantity-type search parameter.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="filter.html"><span class="token function">filter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">referenceParameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/ReferenceClientParam///PointingToDeclaration/">ReferenceClientParam</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>init<span class="token operator">: </span><a href="../../com.google.android.fhir.search.filter/-reference-param-filter-criterion/index.html">ReferenceParamFilterCriterion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">operation<span class="token operator">: </span><a href="../-operation/index.html">Operation</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a filter criterion to the search query based on a reference-type search parameter.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="filter.html"><span class="token function">filter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stringParameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/StringClientParam///PointingToDeclaration/">StringClientParam</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>init<span class="token operator">: </span><a href="../../com.google.android.fhir.search.filter/-string-param-filter-criterion/index.html">StringParamFilterCriterion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">operation<span class="token operator">: </span><a href="../-operation/index.html">Operation</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a filter criterion to the search query based on a <a href="https://www.hl7.org/fhir/search.html#string">string-type search parameter</a>.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="filter.html"><span class="token function">filter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tokenParameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/TokenClientParam///PointingToDeclaration/">TokenClientParam</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>init<span class="token operator">: </span><a href="../../com.google.android.fhir.search.filter/-token-param-filter-criterion/index.html">TokenParamFilterCriterion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">operation<span class="token operator">: </span><a href="../-operation/index.html">Operation</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a filter criterion to the search query based on a token-type search parameter.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="filter.html"><span class="token function">filter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uriParam<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/UriClientParam///PointingToDeclaration/">UriClientParam</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>init<span class="token operator">: </span><a href="../../com.google.android.fhir.search.filter/-uri-param-filter-criterion/index.html">UriParamFilterCriterion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">operation<span class="token operator">: </span><a href="../-operation/index.html">Operation</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2017233876%2FFunctions%2F-1683276876" anchor-label="getQuery" id="-2017233876%2FFunctions%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-query.html"><span>get</span><wbr></wbr><span><span>Query</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2017233876%2FFunctions%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Search</a><span class="token punctuation">.</span><a href="../get-query.html"><span class="token function">getQuery</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isCount<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-search-query/index.html">SearchQuery</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1857360928%2FFunctions%2F-1683276876" anchor-label="has" id="1857360928%2FFunctions%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../has.html"><span><span>has</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1857360928%2FFunctions%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../has.html">R</a><span class="token operator"> : </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/Resource.html">Resource</a><span class="token operator">&gt; </span><a href="index.html">Search</a><span class="token punctuation">.</span><a href="../has.html"><span class="token function">has</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">referenceParam<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/ReferenceClientParam///PointingToDeclaration/">ReferenceClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">init<span class="token operator">: </span><a href="../-base-search/index.html">BaseSearch</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Provides limited support for the reverse chaining on https://www.hl7.org/fhir/search.html#has. For example: search all Patient that have Condition - Diabetes. This search uses the subject field in the Condition resource. Code snippet:</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Search</a><span class="token punctuation">.</span><a href="../has.html"><span class="token function">has</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceType<span class="token operator">: </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a><span class="token punctuation">, </span></span><span class="parameter ">referenceParam<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/ReferenceClientParam///PointingToDeclaration/">ReferenceClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">init<span class="token operator">: </span><a href="../-base-search/index.html">BaseSearch</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Provide limited support for reverse chaining on <a href="index.html">Search</a> (See <a href="https://www.hl7.org/fhir/search.html#has">this</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-338073924%2FFunctions%2F-1683276876" anchor-label="include" id="-338073924%2FFunctions%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../include.html"><span><span>include</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-338073924%2FFunctions%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../include.html">R</a><span class="token operator"> : </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/Resource.html">Resource</a><span class="token operator">&gt; </span><a href="index.html">Search</a><span class="token punctuation">.</span><a href="../include.html"><span class="token function">include</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">referenceParam<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/ReferenceClientParam///PointingToDeclaration/">ReferenceClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">init<span class="token operator">: </span><a href="../-base-search/index.html">BaseSearch</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Includes additional resources in the search results that reference that reference the resource on which <a href="../include.html">include</a> is being called. The developers may call <a href="../include.html">include</a> multiple times with different <a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a> to allow search api to return multiple referenced resource types.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Search</a><span class="token punctuation">.</span><a href="../include.html"><span class="token function">include</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceType<span class="token operator">: </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a><span class="token punctuation">, </span></span><span class="parameter ">referenceParam<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/ReferenceClientParam///PointingToDeclaration/">ReferenceClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">init<span class="token operator">: </span><a href="../-base-search/index.html">BaseSearch</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Includes additional resources in the search results that reference the resource on which <a href="../include.html">include</a> is being called. The developers may call <a href="../include.html">include</a> multiple times with different <a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a> to allow search api to return multiple referenced resource types.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="561593890%2FFunctions%2F-1683276876" anchor-label="revInclude" id="561593890%2FFunctions%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../rev-include.html"><span>rev</span><wbr></wbr><span><span>Include</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="561593890%2FFunctions%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../rev-include.html">R</a><span class="token operator"> : </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/Resource.html">Resource</a><span class="token operator">&gt; </span><a href="index.html">Search</a><span class="token punctuation">.</span><a href="../rev-include.html"><span class="token function">revInclude</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">referenceParam<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/ReferenceClientParam///PointingToDeclaration/">ReferenceClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">init<span class="token operator">: </span><a href="../-base-search/index.html">BaseSearch</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Search</a><span class="token punctuation">.</span><a href="../rev-include.html"><span class="token function">revInclude</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceType<span class="token operator">: </span><a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a><span class="token punctuation">, </span></span><span class="parameter ">referenceParam<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/ReferenceClientParam///PointingToDeclaration/">ReferenceClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">init<span class="token operator">: </span><a href="../-base-search/index.html">BaseSearch</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Includes additional resources in the search results that reference the resource on which <a href="../rev-include.html">revInclude</a> is being called. The developers may call <a href="../rev-include.html">revInclude</a> multiple times with different <a href="https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-structures-r4/org/hl7/fhir/r4/model/ResourceType.html">ResourceType</a> to allow search api to return multiple referenced resource types.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1450155892%2FFunctions%2F-1683276876" anchor-label="sort" id="-1450155892%2FFunctions%2F-1683276876" data-filterable-set=":engine:dokkaHtml/release"></a>
+          <div class="table-row" data-filterable-current=":engine:dokkaHtml/release" data-filterable-set=":engine:dokkaHtml/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sort.html"><span><span>sort</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1450155892%2FFunctions%2F-1683276876"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":engine:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="sort.html"><span class="token function">sort</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/DateClientParam///PointingToDeclaration/">DateClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">order<span class="token operator">: </span><a href="../-order/index.html">Order</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="sort.html"><span class="token function">sort</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/NumberClientParam///PointingToDeclaration/">NumberClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">order<span class="token operator">: </span><a href="../-order/index.html">Order</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="sort.html"><span class="token function">sort</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parameter<span class="token operator">: </span><span data-unresolved-link="ca.uhn.fhir.rest.gclient/StringClientParam///PointingToDeclaration/">StringClientParam</span><span class="token punctuation">, </span></span><span class="parameter ">order<span class="token operator">: </span><a href="../-order/index.html">Order</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
